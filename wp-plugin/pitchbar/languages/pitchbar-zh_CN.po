@@ -1,0 +1,171 @@
+# Pitchbar — Simplified Chinese translation (zh_CN).
+# Copyright (C) 2026 Pitchbar
+# This file is distributed under the GPL-2.0-or-later license.
+msgid ""
+msgstr ""
+"Project-Id-Version: Pitchbar 2.0.4\n"
+"Report-Msgid-Bugs-To: https://pitchbar.app\n"
+"PO-Revision-Date: 2026-05-13T00:00:00+00:00\n"
+"Language-Team: Pitchbar <hello@pitchbar.app>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: pitchbar\n"
+
+msgid "Pitchbar"
+msgstr "Pitchbar"
+
+msgid "Forbidden"
+msgstr "禁止访问"
+
+msgid "You do not have permission to manage Pitchbar settings."
+msgstr "您没有管理 Pitchbar 设置的权限。"
+
+msgid "Connect this WordPress site to a Pitchbar workspace and embed the chat widget on every public page."
+msgstr "将此 WordPress 站点连接到 Pitchbar 工作区，并在所有公开页面嵌入聊天小部件。"
+
+msgid "Connection"
+msgstr "连接"
+
+msgid "Pitchbar base URL"
+msgstr "Pitchbar 基础 URL"
+
+msgid "The URL of your Pitchbar workspace."
+msgstr "您的 Pitchbar 工作区地址。"
+
+msgid "API token"
+msgstr "API 令牌"
+
+msgid "Create one in your Pitchbar admin under Settings → API tokens. The token is shown once at creation."
+msgstr "请在 Pitchbar 管理后台 设置 → API 令牌 中创建。令牌仅在创建时显示一次。"
+
+msgid "Test connection"
+msgstr "测试连接"
+
+msgid "Agent"
+msgstr "代理"
+
+msgid "Attached agent"
+msgstr "已绑定的代理"
+
+msgid "— Run Test connection first —"
+msgstr "— 请先点击「测试连接」 —"
+
+msgid "Connected to workspace: %s"
+msgstr "已连接到工作区：%s"
+
+msgid "Widget display"
+msgstr "小部件显示"
+
+msgid "Enabled"
+msgstr "已启用"
+
+msgid "Inject the Pitchbar widget on the front end"
+msgstr "在前端注入 Pitchbar 小部件"
+
+msgid "Post types"
+msgstr "文章类型"
+
+msgid "Choose which content types load the widget. Singular pages of unchecked types stay widget-free."
+msgstr "选择哪些内容类型会加载小部件。未勾选的类型的单页不会显示小部件。"
+
+msgid "Posts"
+msgstr "文章"
+
+msgid "Pages"
+msgstr "页面"
+
+msgid "is installed but not configured yet."
+msgstr "已安装但尚未配置。"
+
+msgid "Open Settings → Pitchbar to connect."
+msgstr "打开 设置 → Pitchbar 进行连接。"
+
+msgid "Testing connection…"
+msgstr "正在测试连接…"
+
+msgid "Connected. Pick the agent you want to attach below."
+msgstr "连接成功。请在下方选择要绑定的代理。"
+
+msgid "Connection failed."
+msgstr "连接失败。"
+
+msgid "No agents found in this workspace. Create one in your Pitchbar admin and try again."
+msgstr "在此工作区中没有找到代理。请在 Pitchbar 管理后台创建一个后重试。"
+
+msgid "Security check failed. Reload the page and try again."
+msgstr "安全校验失败。请刷新页面后重试。"
+
+msgid "Enter both a base URL and an API token, then try again."
+msgstr "请同时输入基础 URL 和 API 令牌后再试。"
+
+msgid "Base URL must start with http:// or https://."
+msgstr "基础 URL 必须以 http:// 或 https:// 开头。"
+
+msgid "API token format looks wrong — it should start with \"pbar_\" followed by 48 alphanumeric characters."
+msgstr "API 令牌格式不正确，应以 \"pbar_\" 开头，后跟 48 位字母或数字。"
+
+msgid "Agent ID must be a UUID."
+msgstr "代理 ID 必须是一个 UUID。"
+
+msgid "Failed to encode request body."
+msgstr "请求体编码失败。"
+
+msgid "Pitchbar responded with HTTP %d."
+msgstr "Pitchbar 返回了 HTTP %d。"
+
+msgid "Knowledge sync"
+msgstr "知识同步"
+
+msgid "Push every public post and page of the post types you enabled above to Pitchbar so the chat widget can answer from them. Unchanged posts are skipped automatically; this is safe to re-run."
+msgstr "将以上启用类型的所有公开文章和页面推送到 Pitchbar，以便聊天小部件可以基于这些内容作答。未变更的文章会自动跳过；重复运行是安全的。"
+
+msgid "Sync now"
+msgstr "立即同步"
+
+msgid "Syncing posts… this may take a minute on large sites."
+msgstr "正在同步文章…在大型站点上可能需要一分钟。"
+
+msgid "Sync complete."
+msgstr "同步完成。"
+
+msgid "Sync failed."
+msgstr "同步失败。"
+
+msgid "Plugin is not configured."
+msgstr "插件尚未配置。"
+
+msgid "Configure the plugin before running a sync."
+msgstr "请先完成插件配置再运行同步。"
+
+msgid "Batch %1$d failed: %2$s"
+msgstr "第 %1$d 批失败：%2$s"
+
+msgid "unknown error"
+msgstr "未知错误"
+
+msgid "Sync posts now"
+msgstr "立即同步文章"
+
+msgid "WooCommerce products"
+msgstr "WooCommerce 产品"
+
+msgid "Push your WooCommerce catalog (simple, variable, grouped, and external products) to Pitchbar. The agent automatically switches to the ecommerce vertical preset so it can emit product cards in chat responses."
+msgstr "将您的 WooCommerce 商品目录（简单、可变、组合和外部商品）推送到 Pitchbar。代理会自动切换到电商垂直预设，从而在聊天回复中输出产品卡片。"
+
+msgid "Sync products now"
+msgstr "立即同步产品"
+
+msgid "Syncing products… this may take a minute on large catalogs."
+msgstr "正在同步产品…在大型目录上可能需要一分钟。"
+
+msgid "Product sync complete."
+msgstr "产品同步完成。"
+
+msgid "Product sync failed."
+msgstr "产品同步失败。"
+
+msgid "WooCommerce is not active."
+msgstr "WooCommerce 未启用。"

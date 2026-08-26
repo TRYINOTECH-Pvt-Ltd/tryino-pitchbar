@@ -1,0 +1,46 @@
+name: widget bundle size
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+      - master
+  pull_request:
+    branches:
+      - develop
+      - main
+      - master
+
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build widget bundle
+        run: npm run build:widget
+
+      - name: Assert gzipped widget bundle ≤ 50KB
+        run: |
+          BUNDLE=public/widget/widget.js
+          if [ ! -f "$BUNDLE" ]; then
+            echo "Widget bundle not found at $BUNDLE"
+            exit 1
+          fi
+          GZIP_BYTES=$(gzip -c "$BUNDLE" | wc -c | tr -d ' ')
+          LIMIT=51200
+          echo "Gzipped size: ${GZIP_BYTES} bytes (limit: ${LIMIT} bytes / 50 KB)"
+          if [ "$GZIP_BYTES" -gt "$LIMIT" ]; then
+            echo "::error::Widget bundle exceeds 50KB gzip budget (${GZIP_BYTES} > ${LIMIT})"
+            exit 1
+          fi

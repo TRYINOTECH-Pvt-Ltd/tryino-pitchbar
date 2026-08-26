@@ -1,0 +1,84 @@
+## Pitchbar — Laravel Cloud configuration (placeholder)
+##
+## VPS / Docker (what we actually ship): see docker-compose.prod.yml and
+## infra/docker/README.md. This file is illustrative of the same three
+## process types (web / reverb / workers) if you later move to Laravel Cloud.
+##
+## This file is illustrative; replace with whatever Laravel Cloud's actual
+## config format is at deploy time. The structure shows three compute types
+## sharing one codebase.
+
+name: pitchbar
+region: us-east-1
+
+services:
+  web:
+    type: octane
+    server: frankenphp
+    instances: 2
+    autoscale:
+      cpu_target: 65
+      min: 2
+      max: 10
+    healthcheck: /up
+    env_from: production
+
+  reverb:
+    type: persistent
+    command: php artisan reverb:start
+    instances: 1
+    memory_mb: 1024
+    sticky_sessions: true
+    autoscale:
+      connections_target: 5000
+      min: 1
+      max: 4
+    env_from: production
+
+  workers:
+    type: persistent
+    command: php artisan horizon
+    instances: 1
+    memory_mb: 1024
+    autoscale:
+      queue_depth_target: 200
+      min: 1
+      max: 6
+    env_from: production
+
+databases:
+  primary:
+    type: postgres-16
+    size: db.standard
+    backups:
+      daily: true
+      retention_days: 30
+
+caches:
+  redis:
+    type: redis-7
+    size: cache.standard
+
+domains:
+  - app.pitchbar.io   # → web
+  - api.pitchbar.io   # → web (API host)
+  - ws.pitchbar.io    # → reverb
+  - pitchbar.io       # → web (marketing)
+
+cron:
+  - schedule: "*/1 * * * *"
+    command: php artisan schedule:run
+
+deploy:
+  build:
+    - composer install --no-dev --optimize-autoloader
+    - php artisan event:cache
+    - php artisan route:cache
+    - php artisan view:cache
+    - npm ci
+    - npm run build
+    - npm run build:widget
+  release:
+    - php artisan migrate --force
+    - php artisan qdrant:setup
+    - php artisan db:seed --class=PlanSeeder

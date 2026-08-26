@@ -1,0 +1,43 @@
+/.phpunit.cache
+# SSR build artifacts ARE committed alongside public/build/* so the
+# deploy host can `git pull` and start the Node SSR process without a
+# build step. See ecosystem.config.cjs (pitchbar-ssr) for the PM2 entry.
+# /bootstrap/ssr
+/node_modules
+/public/fonts-manifest.dev.json
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/resources/js/actions
+/resources/js/routes
+/resources/js/wayfinder
+/vendor
+.DS_Store
+.env
+.env.dev
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/auth.json
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+
+# Playwright MCP scratch (screenshots, page snapshots, console logs).
+# These are debug artifacts from in-session browser tests — they
+# should never be committed.
+/.playwright-mcp
+/test-results
+/playwright-report
+*.png
+!resources/**/*.png
+!public/**/*.png
+!docs/**/*.png

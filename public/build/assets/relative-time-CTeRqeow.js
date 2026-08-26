@@ -1,0 +1,1 @@
+function e(e,t=`No activity`){if(!e)return t;let n=Date.now()-new Date(e).getTime(),r=Math.max(1,Math.round(n/6e4));if(r<60)return`${r}m ago`;let i=Math.round(r/60);if(i<24)return`${i}h ago`;let a=Math.round(i/24);return a<7?`${a}d ago`:new Date(e).toLocaleDateString()}export{e as t};

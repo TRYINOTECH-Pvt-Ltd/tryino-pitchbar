@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  DOCS PAGE TEMPLATE
+  ----------------------------------------------------------------------------
+  Standalone copy of the documentation page chrome (topbar + sidebar + article
+  + on-this-page TOC), mirroring resources/views/documentation/layout.blade.php.
+
+  It links the SAME stylesheet + script as the live docs:
+      ./style.css      (the entire docs theme — light/dark, prose, callouts)
+      ./script.js      (theme toggle, sidebar search, auto-built TOC)
+
+  To reuse this as a starting point:
+    1. Copy this file + style.css + script.js together.
+    2. Replace the <aside class="docs-sidebar"> links with your own nav.
+    3. Replace everything inside <div class="docs-content"> with your page body
+       — the building blocks are demonstrated below (headings, lists, tables,
+       code, callouts, cards, links). Headings (<h2>/<h3>) auto-populate the
+       "On this page" TOC.
+    4. Set the <title>, .docs-eyebrow (group), and .docs-page-title.
+
+  Preview it live at:  /documentation-assets/page-template.html
+  ============================================================================
+-->
+<html lang="en" data-theme="auto">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Page title · docs template</title>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=geist:400,500,600,700|geist-mono:400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css?v=2">
+</head>
+<body>
+    <header class="docs-topbar">
+        <div class="docs-topbar-inner">
+            <a href="#" class="docs-brand">
+                <span class="docs-brand-mark">P</span>
+                <span class="docs-brand-text">Product <span class="docs-brand-sub">docs</span></span>
+            </a>
+
+            <div class="docs-search">
+                <input type="search" id="docs-search-input" placeholder="Search docs…" autocomplete="off" aria-label="Search documentation">
+                <kbd>/</kbd>
+            </div>
+
+            <nav class="docs-topbar-links" aria-label="Top navigation">
+                <a href="#" class="docs-topbar-link">Home</a>
+                <a href="#" class="docs-topbar-link">Dashboard</a>
+                <button type="button" id="docs-theme-toggle" class="docs-theme-toggle" aria-label="Toggle theme">
+                    <svg class="docs-theme-icon docs-theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                    <svg class="docs-theme-icon docs-theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <button type="button" id="docs-mobile-toggle" class="docs-mobile-toggle" aria-label="Toggle menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="docs-shell">
+        <aside class="docs-sidebar" id="docs-sidebar" aria-label="Sidebar navigation">
+            <nav class="docs-nav">
+                <!-- Replace these groups/links with your own nav. The
+                     data-search-* attributes feed the top-bar search. -->
+                <div class="docs-nav-group">
+                    <h4 class="docs-nav-group-title">Getting started</h4>
+                    <ul class="docs-nav-list">
+                        <li><a href="#" data-search-title="Overview" data-search-group="Getting started" class="docs-nav-link is-active">Overview</a></li>
+                        <li><a href="#" data-search-title="Quickstart" data-search-group="Getting started" class="docs-nav-link">Quickstart</a></li>
+                    </ul>
+                </div>
+                <div class="docs-nav-group">
+                    <h4 class="docs-nav-group-title">Guides</h4>
+                    <ul class="docs-nav-list">
+                        <li><a href="#" data-search-title="Another page" data-search-group="Guides" class="docs-nav-link">Another page</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="docs-main">
+            <article class="docs-article">
+                <p class="docs-eyebrow">Getting started</p>
+                <h1 class="docs-page-title">Page title</h1>
+                <div class="docs-content">
+                    <!-- ▼▼▼ PAGE BODY — replace everything below ▼▼▼ -->
+
+                    <p>
+                        Lead paragraph. Use plain <code>&lt;p&gt;</code> for prose,
+                        <code>&lt;strong&gt;</code> for emphasis, <code>&lt;em&gt;</code>
+                        for italics, and <code>&lt;code&gt;</code> for inline code or
+                        identifiers. Links look like
+                        <a href="#">this cross-link</a>.
+                    </p>
+
+                    <div class="callout callout-info">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        <div class="callout-body">
+                            <div class="callout-title">Callout</div>
+                            An info callout. Swap the class for
+                            <code>callout-warning</code> or <code>callout-success</code>
+                            to change the tone.
+                        </div>
+                    </div>
+
+                    <h2>A section heading</h2>
+
+                    <p>
+                        Every <code>&lt;h2&gt;</code> and <code>&lt;h3&gt;</code> in
+                        this content area is automatically listed in the “On this
+                        page” panel on the right (the script reads the headings on
+                        load).
+                    </p>
+
+                    <div class="docs-cards">
+                        <a class="docs-card" href="#">
+                            <div class="docs-card-title">A card</div>
+                            <div class="docs-card-body">Card grid for linking out to related pages or actions.</div>
+                        </a>
+                        <a class="docs-card" href="#">
+                            <div class="docs-card-title">Another card</div>
+                            <div class="docs-card-body">Cards wrap responsively and flip with the theme.</div>
+                        </a>
+                    </div>
+
+                    <h2>Lists and tables</h2>
+
+                    <ul>
+                        <li>An unordered list item.</li>
+                        <li>Another item, with <code>inline code</code>.</li>
+                    </ul>
+
+                    <ol>
+                        <li>First ordered step.</li>
+                        <li>Second ordered step.</li>
+                    </ol>
+
+                    <table>
+                        <thead>
+                            <tr><th>Field</th><th>What it does</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Example</strong></td><td>Tables render with the docs theme automatically.</td></tr>
+                            <tr><td><strong>Another</strong></td><td>Keep cells short for readability.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Code blocks</h2>
+
+                    <p>Wrap multi-line code in <code>&lt;pre&gt;&lt;code&gt;</code>:</p>
+
+                    <pre><code>npm install
+npm run dev</code></pre>
+
+                    <h3>A sub-section</h3>
+
+                    <p>
+                        Use <code>&lt;h3&gt;</code> for nested headings — they indent
+                        under their parent in the on-this-page list.
+                    </p>
+
+                    <!-- ▲▲▲ PAGE BODY — replace everything above ▲▲▲ -->
+                </div>
+
+                <nav class="docs-page-nav" aria-label="Page navigation">
+                    <a href="#" class="docs-page-prev">
+                        <span class="docs-page-nav-label">Previous</span>
+                        <span class="docs-page-nav-title">← Previous page</span>
+                    </a>
+                    <a href="#" class="docs-page-next">
+                        <span class="docs-page-nav-label">Next</span>
+                        <span class="docs-page-nav-title">Next page →</span>
+                    </a>
+                </nav>
+            </article>
+
+            <aside class="docs-toc" aria-label="On this page">
+                <p class="docs-toc-title">On this page</p>
+                <ul id="docs-toc-list" class="docs-toc-list"></ul>
+            </aside>
+        </main>
+    </div>
+
+    <script src="./script.js?v=2" defer></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+# Production stack for a VPS with Docker / Portainer.
+# Local development keeps using docker-compose.yml (Postgres + Redis + Qdrant + Mailpit).
+#
+#   cp .env.production.example .env
+#   # fill APP_KEY, APP_URL, DB_PASSWORD (AI/mail/Stripe go in Settings → System)
+#   docker compose -f docker-compose.prod.yml up -d --build
+#
+# Optional profiles:
+#   --profile realtime   Laravel Reverb (live inbox / human takeover)
+#   --profile qdrant     self-hosted vectors (skip if using Cloudflare Vectorize)
+
+name: pitchbar
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: Dockerfile
+  image: pitchbar:2.1.0
+  restart: unless-stopped
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    APP_ENV: production
+    APP_DEBUG: "false"
+    LOG_CHANNEL: stderr
+    LOG_STACK: stderr
+    DB_CONNECTION: pgsql
+    DB_HOST: postgres
+    DB_PORT: "5432"
+    DB_DATABASE: ${DB_DATABASE:-pitchbar}
+    DB_USERNAME: ${DB_USERNAME:-pitchbar}
+    DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    REDIS_HOST: redis
+    REDIS_PORT: "6379"
+    REDIS_CLIENT: predis
+    SESSION_DRIVER: redis
+    CACHE_STORE: redis
+    QUEUE_CONNECTION: redis
+    REDIS_QUEUE_RETRY_AFTER: "660"
+    OCTANE_SERVER: frankenphp
+    OCTANE_HTTPS: "false"
+    INERTIA_SSR_ENABLED: "${INERTIA_SSR_ENABLED:-true}"
+    INERTIA_SSR_URL: http://ssr:13714
+  volumes:
+    - pitchbar-storage:/app/storage
+  depends_on:
+    postgres:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+  networks:
+    - pitchbar
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-pitchbar}
+      POSTGRES_USER: ${DB_USERNAME:-pitchbar}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    volumes:
+      - pitchbar-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-pitchbar} -d ${DB_DATABASE:-pitchbar}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - pitchbar
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - pitchbar-redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - pitchbar
+
+  app:
+    <<: *app
+    command: ["web"]
+    ports:
+      - "${APP_PORT:-8000}:80"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1/up"]
+      interval: 15s
+      timeout: 5s
+      retries: 12
+      start_period: 60s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      ssr:
+        condition: service_started
+
+  horizon:
+    <<: *app
+    command: ["horizon"]
+    healthcheck:
+      test: ["CMD", "php", "artisan", "horizon:status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      app:
+        condition: service_healthy
+
+  scheduler:
+    <<: *app
+    command: ["scheduler"]
+    healthcheck:
+      disable: true
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      app:
+        condition: service_healthy
+
+  ssr:
+    <<: *app
+    command: ["ssr"]
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:13714/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 8
+      start_period: 15s
+
+  reverb:
+    <<: *app
+    profiles: ["realtime"]
+    command: ["reverb"]
+    ports:
+      - "${REVERB_PUBLISH_PORT:-8080}:8080"
+    healthcheck:
+      disable: true
+    depends_on:
+      redis:
+        condition: service_healthy
+      app:
+        condition: service_healthy
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    profiles: ["qdrant"]
+    restart: unless-stopped
+    volumes:
+      - pitchbar-qdrantdata:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6333' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - pitchbar
+
+networks:
+  pitchbar:
+    name: pitchbar
+
+volumes:
+  pitchbar-pgdata:
+  pitchbar-redisdata:
+  pitchbar-storage:
+  pitchbar-qdrantdata:

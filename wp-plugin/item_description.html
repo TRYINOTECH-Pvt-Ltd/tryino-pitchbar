@@ -1,0 +1,365 @@
+<!--
+    Pitchbar for WordPress & WooCommerce — CodeCanyon item description.
+    Plain HTML, no tables. Drop straight into CodeCanyon's
+    "Item Description" editor. Replace the placeholders marked
+    {{ ... }} before publishing.
+-->
+
+<h1>Pitchbar for WordPress &amp; WooCommerce — Streaming AI Chat Widget, Knowledge Sync &amp; Deep Store Integration</h1>
+
+<p>
+    <strong>Pitchbar for WordPress</strong> is the official companion
+    plugin that connects your WordPress (or WooCommerce) site to a
+    <strong>Pitchbar workspace</strong> and drops a streaming
+    Sales-AI chat widget on every public page. The agent answers from
+    <em>your own</em> posts, pages, and products — captures leads,
+    applies real coupon codes to the cart, looks up the visitor's
+    orders, and hands off to a human operator in real time.
+</p>
+
+<p>
+    One click installs the widget on every public page. Posts, pages,
+    and the entire WooCommerce catalog sync to your Pitchbar agent in
+    the background. Five major page builders (Elementor, Divi, Beaver,
+    Oxygen, Bricks) are rendered properly so their visible HTML
+    actually reaches the agent. Every product / post in the WP admin
+    gets an &ldquo;Indexed&rdquo; badge so you can see at a glance
+    which entries are searchable.
+</p>
+
+<p>
+    <strong>Self-hosted, GPL-licensed, multi-page-builder, WooCommerce-aware. Built by the team behind Pitchbar.</strong>
+</p>
+
+<p style="margin: 28px 0;">
+    <img src="{{HERO_SCREENSHOT_URL}}" alt="Pitchbar for WordPress — streaming AI sales widget with knowledge sync" style="display:block; width:100%; max-width:100%; height:auto; border-radius:10px;">
+</p>
+
+<hr>
+
+<h2>Live Demo</h2>
+
+<p>
+    <strong>WordPress + WooCommerce demo site</strong> (full admin
+    access, the widget is loaded on the front end):
+</p>
+
+<ul>
+    <li>URL: <a href="https://wordpress.thecodestudio.xyz">https://wordpress.thecodestudio.xyz</a></li>
+    <li>WP admin: <a href="https://wordpress.thecodestudio.xyz/wp-admin">https://wordpress.thecodestudio.xyz/wp-admin</a></li>
+    <li>Username: <code>admin</code></li>
+    <li>Password: <code>admin</code></li>
+</ul>
+
+<p>
+    Visit the front end and chat with the widget in the bottom-right
+    corner. Open <strong>Settings → Pitchbar</strong> in the WP admin
+    to see the connection panel, the agent picker, and the &ldquo;Sync
+    posts now / Sync products now&rdquo; buttons. Open
+    <strong>Posts</strong> or <strong>Products</strong> to see the
+    &ldquo;Pitchbar&rdquo; admin column with Indexed / Out of date /
+    Not indexed pills.
+</p>
+
+<p>
+    <strong>What you need to run it:</strong> a Pitchbar workspace
+    (the SaaS this plugin connects to). If you've purchased the main
+    <a href="{{PITCHBAR_SAAS_ITEM_URL}}">Pitchbar — Self-hosted Sales AI Widget</a>
+    you already have one. Otherwise create a free trial workspace at
+    your Pitchbar deployment and paste the URL + API token into the
+    plugin's settings page.
+</p>
+
+<hr>
+
+<h2>Why this plugin</h2>
+
+<ul>
+    <li><strong>Designed for WooCommerce.</strong> Logged-in shopper context, order lookup, real coupon emission and one-click apply, abandoned-cart re-engagement, product-card rendering inline in chat replies — none of which a generic chat plugin can do.</li>
+    <li><strong>Page-builder native.</strong> Pages owned by Elementor, Divi, Beaver Builder, Oxygen, and Bricks have empty <code>post_content</code> — every builder stashes its layout in postmeta. The plugin invokes each builder's native renderer so the visible HTML reaches your AI agent intact.</li>
+    <li><strong>Knowledge sync that doesn't time out.</strong> Bulk + delta indexing of posts, pages, every custom post type you opt into, and the full WC catalog. Resumable across multiple WP-Cron ticks so big catalogs survive shared hosting's 30s execution cap.</li>
+    <li><strong>Zero theme conflict.</strong> Widget renders inside a Shadow DOM — your theme CSS can't accidentally style it; the widget can't accidentally style your site. Loaded with <code>&lt;script async&gt;</code> on <code>wp_footer</code> so it never blocks paint.</li>
+    <li><strong>Visible status in the WP admin.</strong> Posts, Pages, and Products list tables get a &ldquo;Pitchbar&rdquo; column with green &ldquo;Indexed&rdquo;, yellow &ldquo;Out of date&rdquo;, or gray &ldquo;Not indexed&rdquo; pills based on the actual sync timestamp + content hash per row.</li>
+    <li><strong>Secure two-way auth.</strong> Plugin → Pitchbar with a Bearer API token (SHA-256 hashed at rest on the server). Pitchbar → Plugin (order lookup, coupon apply, lead push) with HMAC-SHA256 signatures using a per-token shared secret. 5-minute timestamp window stops replay attacks.</li>
+    <li><strong>RTL aware.</strong> The widget mirrors as a unit on Arabic, Hebrew, Persian, Urdu, and any RTL locale WordPress recognises.</li>
+    <li><strong>GPL-licensed.</strong> No obfuscation, no encoder, no phone-home. Open the source, fork it, ship your own variant.</li>
+</ul>
+
+<hr>
+
+<h2>What the plugin actually does</h2>
+
+<h3>1. One-click widget embed</h3>
+<ul>
+    <li>Injects the Pitchbar widget loader into <code>wp_footer</code> on every front-end request, scoped to the post types you opt into (Posts and Pages by default; tick more from the settings page).</li>
+    <li>Skipped automatically on admin pages, <code>wp-login.php</code>, AJAX, REST, XML-RPC, and cron requests — the widget never shows where it shouldn't.</li>
+    <li>Passes a JSON page-context blob (post id, post type, permalink, categories, tags, and — when WooCommerce is active — the visible product fields) to the widget so its retrieval prefers content from the page the visitor is on.</li>
+    <li>Locale-aware: the widget receives <code>data-page-dir="rtl"</code> and the resolved <code>data-page-locale</code> so it mirrors correctly on Arabic, Hebrew, Persian, and Urdu sites.</li>
+</ul>
+
+<h3>2. Posts + pages knowledge sync</h3>
+<ul>
+    <li><strong>&ldquo;Sync posts now&rdquo;</strong> button under Settings → Pitchbar pushes every published post of the opted-in post types to your Pitchbar agent in batches of 50.</li>
+    <li><strong>Delta hooks</strong> on <code>save_post</code> / <code>wp_trash_post</code> / <code>before_delete_post</code> keep the agent up to date as you publish and unpublish.</li>
+    <li><strong>Content-hash dedupe</strong> — Pitchbar skips unchanged posts on every batch; running &ldquo;Sync now&rdquo; twice in a row only sends what's actually changed.</li>
+    <li><strong>Resumable</strong> — when a sync runs past 20 seconds of wall clock it persists a resume marker, schedules a WP-Cron continuation 30s out, and finishes off in the background.</li>
+    <li><strong>Empty-body fallback</strong> — featured-image-only posts (and builder-owned stubs) get a synthesised body from title + excerpt + taxonomy terms so they still produce indexable text.</li>
+</ul>
+
+<h3>3. Page-builder support</h3>
+<ul>
+    <li>Detects and renders pages owned by:
+        <ul>
+            <li><strong>Elementor</strong> (Free + Pro) via <code>\Elementor\Plugin::frontend()-&gt;get_builder_content_for_display()</code></li>
+            <li><strong>Divi</strong> via <code>setup_postdata()</code> + <code>the_content</code> filter (so Divi's shortcodes resolve correctly)</li>
+            <li><strong>Beaver Builder</strong> via <code>FLBuilder::render_content_by_id()</code></li>
+            <li><strong>Oxygen</strong> via <code>ct_template_output</code> filter</li>
+            <li><strong>Bricks</strong> via <code>Bricks\Frontend::render_content()</code></li>
+        </ul>
+    </li>
+    <li>First-match-wins detection based on the builder's own postmeta keys — a site that switched builders mid-project never double-renders.</li>
+    <li><code>pitchbar_post_content_html</code> filter so themes or sites can post-process the rendered HTML (strip nav, force a specific template, etc.) without forking the plugin.</li>
+</ul>
+
+<h3>4. WooCommerce: product sync</h3>
+<ul>
+    <li><strong>Every product type is synced</strong> — simple, variable, grouped, external, AND subscriptions, bundles, memberships, bookings, and any custom type extensions add. No type filter means custom store types never silently drop on the floor.</li>
+    <li>Each product carries SKU, name, permalink, image URL, short + long description, price + sale price + currency, stock status, on-sale flag, categories, and attributes — everything the agent needs to render a product card in chat.</li>
+    <li>Delta hooks on <code>woocommerce_new_product</code>, <code>woocommerce_update_product</code>, <code>woocommerce_delete_product</code>, <code>woocommerce_trash_product</code> keep the agent current as you edit.</li>
+    <li>Fallback <code>WP_Query</code> path for hosts whose <code>wc_get_products</code> hook chain hides custom types — a real fix for the &ldquo;0 products, 0 queued&rdquo; symptom on subscription / multilingual stores.</li>
+</ul>
+
+<h3>5. WooCommerce: deep store integration</h3>
+<ul>
+    <li><strong>Logged-in shopper context</strong> — when a WooCommerce customer is signed in, the plugin issues a short-lived HMAC-signed token attached to the widget loader. The Pitchbar server lifts <code>wp_user_id</code> + <code>email_hash</code> (SHA-256 of the email — never plaintext) into the visitor's JWT so the agent knows who's talking.</li>
+    <li><strong><code>lookup_order</code> tool</strong> — the agent can ask &ldquo;where's my order?&rdquo; and resolve to a real WooCommerce order. The plugin exposes <code>/wp-json/pitchbar/v1/orders/lookup</code> over HMAC-signed POST and returns the last N orders for the signed-in <code>wp_user_id</code> with status, items, total, tracking URL (AfterShip / Shipment Tracking / generic <code>_tracking_url</code>), and a deep-link to the customer's view-order page.</li>
+    <li><strong>Coupon emission &amp; apply</strong> — the plugin syncs the store's currently-valid WooCommerce coupons to Pitchbar after every product sync (drops expired and exhausted codes). The agent renders <code>&lt;coupon/&gt;</code> cards in chat with Copy and Apply buttons. Apply hits <code>/wp-json/pitchbar/v1/cart/coupon</code>, validates the code with <code>WC_Coupon</code>, and stages it in a 15-minute transient that fires <code>$cart-&gt;apply_coupon()</code> on the next cart load.</li>
+    <li><strong>Lead mirroring</strong> — every lead captured in chat is pushed back into WordPress as a WooCommerce customer (via <code>wc_create_new_customer</code>) when WC is active, or as a WP subscriber otherwise. Idempotent on email so refilling the form doesn't create duplicates; the lead id and conversation id are stashed in user meta.</li>
+    <li><strong>Abandoned-cart trigger</strong> — a tiny front-end script mirrors WooCommerce's jQuery cart events (<code>added_to_cart</code> / <code>removed_from_cart</code>) into <code>localStorage</code> so the widget's <code>abandoned_cart</code> behaviour rule can engage when the cart sits idle past the configured threshold.</li>
+</ul>
+
+<h3>6. Admin badges + status</h3>
+<ul>
+    <li>&ldquo;Pitchbar&rdquo; column on the Posts, Pages, and Products admin list tables shows one of three pills per row:
+        <ul>
+            <li><strong>Indexed</strong> — green, with the relative timestamp of the last sync (&ldquo;Indexed 2h ago&rdquo;).</li>
+            <li><strong>Out of date</strong> — yellow, fires when <code>post_modified_gmt</code> advances past <code>_pitchbar_synced_at</code> (the row was edited after its last sync).</li>
+            <li><strong>Not indexed</strong> — gray, for posts/products that have never been synced.</li>
+        </ul>
+    </li>
+    <li>Forced 110px column width via <code>admin_head</code> CSS so the header text never wraps vertically (a real bug on crowded WooCommerce screens).</li>
+    <li>Soft info notice on the Plugins screen while a chunked sync is mid-run, so the operator knows a WP-Cron tick is still finishing the job.</li>
+</ul>
+
+<h3>7. Connection &amp; diagnostics</h3>
+<ul>
+    <li><strong>Test connection</strong> button validates the workspace URL + API token, lists the agents in the workspace, and lets you pick one from a dropdown.</li>
+    <li>Detailed error reporting — HTTP status, the URL the plugin tried, the cURL / DNS transport code on a network failure, and the first 800 chars of the upstream response body. A &ldquo;Show details&rdquo; toggle reveals the full diagnostic block.</li>
+    <li>HTTP-status-aware hints: 401 prompts to reissue the API token, 403 hints at the missing <code>wp:integration</code> ability, 404 hints that the Pitchbar app isn't fully deployed, 5xx points to the server log.</li>
+</ul>
+
+<h3>8. Security &amp; privacy</h3>
+<ul>
+    <li><strong>Two-direction auth</strong> — plugin signs every outgoing request with a Bearer API token; Pitchbar signs every callback (orders, leads, coupons) with HMAC-SHA256 using a per-token <code>shopper_signing_secret</code>. The secret is delivered in the handshake response and stored in <code>wp_options</code>.</li>
+    <li><strong>Replay window</strong> — both directions enforce a 5-minute timestamp window on the HMAC payload.</li>
+    <li><strong>No PII to the agent</strong> — only public taxonomies, post type, permalink, and Woo public product fields ride in the page-context blob. The shopper token carries <code>wp_user_id</code> + <em>SHA-256 of</em> the email — never plaintext.</li>
+    <li><strong>Capability-gated admin</strong> — Settings page, connection test, and sync buttons are all behind <code>manage_options</code>. AJAX endpoints verify a WordPress nonce on every POST.</li>
+    <li><strong>Clean uninstall</strong> — <code>uninstall.php</code> deletes every option the plugin wrote so a reinstall starts clean.</li>
+</ul>
+
+<hr>
+
+<h2>Where the plugin is genuinely different</h2>
+
+<p>
+    Generic chat plugins drop a third-party script and call it done.
+    Pitchbar for WordPress is built to actually work on real WordPress
+    sites:
+</p>
+
+<ul>
+    <li><strong>Plugin load-order race fixed.</strong> Alphabetical plugin order puts <code>pitchbar</code> before <code>woocommerce</code> on most sites — <code>class_exists('WooCommerce')</code> returns false at <code>plugins_loaded</code> priority 10 and WC features silently disable. The plugin listens for <code>woocommerce_loaded</code> instead and re-checks if WC already fired, so WC features always wire up correctly.</li>
+    <li><strong>Coupon enumeration via the <code>shop_coupon</code> CPT</strong> + direct <code>new WC_Coupon($id)</code> hydration. Replaces <code>wc_get_coupons()</code> which is not public WC API on every release.</li>
+    <li><strong>Sync resumable across WP-Cron ticks.</strong> Hard 20-second time budget per pass, transient resume marker, scheduled continuation 30s out. Big catalogs survive shared hosting's 30s <code>max_execution_time</code>.</li>
+    <li><strong>WP_Query fallback</strong> when <code>wc_get_products</code> returns 0. Real fix for a real symptom: subscription / multilingual / membership stores where WC's query hook chain hides the catalog.</li>
+    <li><strong>Diagnostic transport surface.</strong> When &ldquo;Test connection&rdquo; fails the plugin shows the HTTP status, the URL tried, the cURL error code, and the first 800 chars of the upstream body. The admin can copy/paste the diagnostic block straight into an issue without re-running anything.</li>
+</ul>
+
+<hr>
+
+<h2>Requirements</h2>
+
+<ul>
+    <li><strong>WordPress 6.4+</strong> (tested through 6.6).</li>
+    <li><strong>PHP 7.4+</strong> (tested through 8.4).</li>
+    <li><strong>WooCommerce 8.0+ optional</strong> — the plugin core (widget embed + post sync) runs perfectly on a non-Woo site. Every WC-specific feature is wrapped behind a <code>class_exists('WooCommerce')</code> guard so it never breaks anything.</li>
+    <li><strong>A Pitchbar workspace.</strong> The widget script and the chat agent live on your Pitchbar server. The plugin is the bridge — it does not contain the AI itself. If you've purchased the main Pitchbar SaaS item you already have a workspace; otherwise sign up for one on the deployment you'd like to use.</li>
+    <li>Multisite supported (per-site activation; each subsite connects to its own Pitchbar workspace).</li>
+</ul>
+
+<hr>
+
+<h2>Installation in 60 seconds</h2>
+
+<ol>
+    <li>Download the <code>pitchbar.zip</code> from your CodeCanyon downloads.</li>
+    <li>WP admin → <strong>Plugins → Add New → Upload Plugin</strong>. Choose the zip, click <strong>Install Now</strong>, then <strong>Activate</strong>.</li>
+    <li><strong>Settings → Pitchbar</strong>. Paste your Pitchbar workspace base URL and the API token you created in your Pitchbar admin under <strong>Settings → API tokens</strong>.</li>
+    <li>Click <strong>Test connection</strong>. The plugin reports the workspace name and lists the agents you can attach.</li>
+    <li>Pick an agent from the dropdown. Click <strong>Save changes</strong>. Done — visit any public page on the site and the widget loads in the bottom-right corner.</li>
+    <li>Hit <strong>&ldquo;Sync posts now&rdquo;</strong> (and, on Woo sites, <strong>&ldquo;Sync products now&rdquo;</strong>) so the agent has knowledge to answer from. New posts and products are pushed automatically on every save / publish thereafter.</li>
+</ol>
+
+<hr>
+
+<h2>Frequently Asked</h2>
+
+<h3>Does this plugin need anything other than WordPress?</h3>
+<p>
+    A Pitchbar workspace — that's where the AI lives. The plugin
+    handles the WordPress side: widget embed, knowledge sync, store
+    integration, admin badges. If you bought the main
+    <a href="{{PITCHBAR_SAAS_ITEM_URL}}">Pitchbar self-hosted item</a>
+    you already have a workspace. Otherwise you sign up for one in the
+    Pitchbar deployment you want to use.
+</p>
+
+<h3>Will it slow my site down?</h3>
+<p>
+    No. The widget loader is a single asynchronous
+    <code>&lt;script&gt;</code> tag injected into
+    <code>wp_footer</code>. The widget itself is under 25 KB gzipped
+    and renders inside a Shadow DOM, so it never blocks paint and never
+    interacts with theme CSS. Page-builder content is rendered server-
+    side only when the &ldquo;Sync now&rdquo; button runs — never on
+    every visitor request.
+</p>
+
+<h3>Does it work with WooCommerce subscriptions / bookings / bundles?</h3>
+<p>
+    Yes — the product syncer doesn't filter by type, so subscriptions,
+    bundles, memberships, bookings, and any custom product type
+    extensions register all sync. If your store has a multilingual
+    plugin or subscription gate that hides products from
+    <code>wc_get_products</code>, a fallback <code>WP_Query</code>
+    against <code>post_type=product</code> picks them up automatically.
+</p>
+
+<h3>What happens if a sync hits PHP's 30-second timeout on shared hosting?</h3>
+<p>
+    The syncer is resumable. After 20 seconds of wall-clock work it
+    persists a resume marker in a transient, schedules a WP-Cron
+    continuation 30 seconds out, and finishes the rest in the
+    background. You'll see a soft &ldquo;is finishing in the
+    background&rdquo; notice on the Plugins screen while it works.
+    Re-running &ldquo;Sync now&rdquo; just resumes from where the last
+    pass left off.
+</p>
+
+<h3>Can I see which posts have actually been indexed?</h3>
+<p>
+    Yes — every post and product gets a green &ldquo;Indexed&rdquo;,
+    yellow &ldquo;Out of date&rdquo;, or gray &ldquo;Not indexed&rdquo;
+    pill in the WP admin list tables. The status is computed from a
+    sync timestamp + content hash the plugin stamps on every successful
+    push.
+</p>
+
+<h3>Are my customer's emails sent to the AI provider?</h3>
+<p>
+    No. The shopper context carried in the widget loader contains
+    <code>wp_user_id</code> and a SHA-256 hash of the email — never
+    the plaintext email. The Pitchbar server uses the hash to dedupe
+    leads and correlate sessions, nothing more.
+</p>
+
+<h3>Does the widget work with Elementor / Divi / Beaver / Oxygen / Bricks?</h3>
+<p>
+    Yes. Each builder ships a public renderer; the plugin calls it
+    server-side when syncing so the visible HTML reaches the agent
+    intact. Without this, builder-owned pages have empty
+    <code>post_content</code> and the agent silently has no knowledge
+    of them. Divi posts route through <code>the_content</code>
+    correctly with <code>setup_postdata</code> priming.
+</p>
+
+<h3>Can a logged-in customer ask &ldquo;where's my order?&rdquo;</h3>
+<p>
+    Yes — that's the <code>lookup_order</code> tool. Enable it on the
+    agent in your Pitchbar admin and the AI will call back to the
+    plugin's <code>/wp-json/pitchbar/v1/orders/lookup</code> endpoint
+    over an HMAC-signed POST. The plugin returns the visitor's recent
+    orders with status, items, total, tracking URL (AfterShip /
+    Shipment Tracking / generic <code>_tracking_url</code> meta), and
+    a deep-link to their view-order page.
+</p>
+
+<h3>Can the bot apply a coupon to the cart?</h3>
+<p>
+    Yes. The agent emits a <code>&lt;coupon/&gt;</code> card with the
+    code, label, and discount; the visitor clicks <strong>Apply</strong>;
+    the plugin's <code>/wp-json/pitchbar/v1/cart/coupon</code>
+    endpoint validates the code with <code>WC_Coupon</code> and stages
+    it in a 15-minute transient. On the visitor's next cart load
+    <code>$cart-&gt;apply_coupon()</code> fires automatically.
+</p>
+
+<h3>Can I disable the widget on specific post types?</h3>
+<p>
+    Yes — the settings page lets you tick which post types load the
+    widget. Posts and Pages are enabled by default; uncheck them or
+    tick custom post types (CPTs) as needed. Singular pages of
+    unchecked types stay widget-free.
+</p>
+
+<h3>Is the plugin open-source?</h3>
+<p>
+    Yes — GPLv2 or later. No obfuscation, no encoder, no phone-home.
+    Fork it, audit it, ship a variant — whatever you need.
+</p>
+
+<hr>
+
+<h2>What's included</h2>
+
+<ul>
+    <li><code>pitchbar.zip</code> — install-ready WordPress plugin (~45 KB).</li>
+    <li>This item description as <code>item_description.html</code>.</li>
+    <li><code>documentation.html</code> — Mintlify-style standalone HTML reference covering install, configuration, sync, page builders, WooCommerce features, REST API, security, and troubleshooting. Open in any browser; no internet required.</li>
+    <li><code>readme.txt</code> — WordPress-compatible readme with changelog.</li>
+    <li>Full English POT translation template (<code>languages/pitchbar.pot</code>).</li>
+</ul>
+
+<hr>
+
+<h2>Roadmap (no extra purchase)</h2>
+
+<p>
+    Already on the radar for upcoming releases — every buyer in the
+    major version receives every minor / patch release at no extra
+    cost:
+</p>
+
+<ul>
+    <li>Native Gutenberg block for inline widget embed in the editor.</li>
+    <li>Multisite-wide settings panel for network admins.</li>
+    <li>Per-product widget overrides (different agent per product category).</li>
+    <li>Optional outbound rate-limit configuration for shared-host edge cases.</li>
+    <li>Translation packs for Spanish, French, German, Arabic, Portuguese, Japanese, and Chinese (the runtime already supports them — these add the .po/.mo files).</li>
+</ul>
+
+<hr>
+
+<h2>Ready to ship</h2>
+
+<p>
+    Pitchbar for WordPress is production-ready, GPL-licensed, and
+    powered by the same team that builds the Pitchbar SaaS. Every
+    feature on this page is shipped, tested, and visible in the demo
+    site.
+</p>
+
+<p>
+    <strong>Drop it on your WordPress site. Connect to your Pitchbar
+    workspace. Done.</strong>
+</p>

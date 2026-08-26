@@ -1,0 +1,424 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --font-mono:
+        'Geist Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
+        Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+    --background: oklch(0.985 0 0);
+    --foreground: oklch(0.17 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.17 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.17 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.965 0 0);
+    --secondary-foreground: oklch(0.24 0 0);
+    --muted: oklch(0.955 0 0);
+    --muted-foreground: oklch(0.53 0 0);
+    --accent: oklch(0.94 0 0);
+    --accent-foreground: oklch(0.19 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(0.577 0.245 27.325);
+    --border: oklch(0.91 0 0);
+    --input: oklch(0.89 0 0);
+    --ring: oklch(0.78 0 0);
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+    --radius: 0.5rem;
+    --sidebar: oklch(0.97 0 0);
+    --sidebar-foreground: oklch(0.2 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.925 0 0);
+    --sidebar-accent-foreground: oklch(0.17 0 0);
+    --sidebar-border: oklch(0.89 0 0);
+    --sidebar-ring: oklch(0.78 0 0);
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.18 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.18 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.985 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.24 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.24 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.396 0.141 25.723);
+    --destructive-foreground: oklch(0.637 0.237 25.331);
+    --border: oklch(0.269 0 0);
+    --input: oklch(0.32 0 0);
+    --ring: oklch(0.439 0 0);
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.18 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.985 0 0);
+    --sidebar-primary-foreground: oklch(0.205 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(0.269 0 0);
+    --sidebar-ring: oklch(0.439 0 0);
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground antialiased;
+    }
+}
+
+@layer components {
+    .marketing-display {
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-weight: 400;
+        letter-spacing: -0.05em;
+    }
+
+    .marketing-grid-background {
+        background-image:
+            linear-gradient(
+                to right,
+                rgba(15, 23, 42, 0.06) 1px,
+                transparent 1px
+            ),
+            linear-gradient(
+                to bottom,
+                rgba(15, 23, 42, 0.06) 1px,
+                transparent 1px
+            );
+        background-position: center center;
+        background-size: 44px 44px;
+    }
+
+    /*
+     * RTL escape hatches.
+     *
+     * Tailwind v4 logical properties (ms-/me-/ps-/pe-/start-/end-)
+     * already flip with `dir="rtl"` on the document root, so 95% of
+     * the UI mirrors automatically. The rules below cover the 5%
+     * Tailwind cannot reach:
+     *
+     *   - `.flip-rtl` mirrors lucide icons whose glyph encodes a
+     *     direction (paper-plane, send, undo). Cheaper than swapping
+     *     the icon, and works with any single-icon component.
+     *   - `[data-side="left"]` / `[data-side="right"]` on shadcn
+     *     Sheet+Drawer hardcode physical edges; remap them so a
+     *     sidebar that wants the visual start edge stays on the
+     *     start regardless of the document direction.
+     *   - The Sonner toaster anchors to viewport corners by name —
+     *     map "top-left"/"bottom-left" to the visual start in RTL.
+     */
+    .flip-rtl {
+        transform: scaleX(1);
+    }
+
+    [dir='rtl'] .flip-rtl {
+        transform: scaleX(-1);
+    }
+
+    /*
+     * Sheet / Drawer slide-from-edge animations. shadcn's variants
+     * key on data-side="left"|"right" — in RTL a "left" sheet should
+     * still slide from the visual start (the right edge of the
+     * viewport). We reverse the translate-X direction by negating it.
+     */
+    [dir='rtl'] [data-slot='sheet-content'][data-side='left'] {
+        --tw-translate-x: 100%;
+    }
+
+    [dir='rtl'] [data-slot='sheet-content'][data-side='right'] {
+        --tw-translate-x: -100%;
+    }
+}
+
+/*
+ * Inline LTR fragments inside RTL content — code, URLs, phone
+ * numbers, brand names. Wrap with <bdi dir="ltr"> in markup; the
+ * style rule below restores baseline metrics so the inline runs
+ * don't look misaligned next to RTL glyphs.
+ */
+bdi[dir='ltr'] {
+    unicode-bidi: isolate;
+    direction: ltr;
+}
+
+/*
+ * Admin-authored custom pages (resources/views/marketing/page.blade.php)
+ * render Markdown → HTML inside a `.page-content` wrapper. Tailwind v4
+ * doesn't ship typography utilities, so we hand-roll the rules so the
+ * rendered article matches the visual tone of the rest of the
+ * marketing surface (Instrument Serif headings, slate body text,
+ * generous vertical rhythm). Buyer report (Lucian, 2026-05-18):
+ * "edited pages are not formatted".
+ */
+.page-content {
+    color: rgb(15 23 42); /* slate-900 */
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+.page-content > * + * {
+    margin-top: 1em;
+}
+
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4 {
+    font-family:
+        'Instrument Serif', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+    color: rgb(2 6 23); /* slate-950 */
+}
+
+.page-content h1 {
+    font-size: 2.6rem;
+    letter-spacing: -0.01em;
+}
+
+.page-content h2 {
+    font-size: 1.875rem;
+}
+
+.page-content h3 {
+    font-size: 1.5rem;
+}
+
+.page-content h4 {
+    font-size: 1.25rem;
+}
+
+/*
+ * Belt + suspenders: the wrapper sets slate-900, but a Tailwind
+ * utility on the wrapper (text-slate-700, etc.) would otherwise
+ * cascade into descendants via inherit. Pin descendant colors so
+ * the body copy stays readable even if a caller forgets and
+ * applies a lighter utility on the wrapper. Client report
+ * 2026-05-23: /p/(slug) text was faint grey.
+ */
+.page-content p,
+.page-content li,
+.page-content strong,
+.page-content em {
+    color: rgb(15 23 42); /* slate-900 */
+}
+
+.page-content p {
+    margin: 0.8em 0;
+}
+
+.page-content a {
+    color: rgb(15 118 110); /* teal-700 */
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.page-content ul,
+.page-content ol {
+    margin: 0.9em 0 0.9em 1.5em;
+}
+
+.page-content ul {
+    list-style: disc;
+}
+
+.page-content ol {
+    list-style: decimal;
+}
+
+.page-content li + li {
+    margin-top: 0.4em;
+}
+
+.page-content blockquote {
+    margin: 1em 0;
+    padding: 0.25em 1em;
+    border-inline-start: 3px solid rgb(203 213 225); /* slate-300 */
+    color: rgb(71 85 105); /* slate-600 */
+    font-style: italic;
+}
+
+.page-content code {
+    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.875em;
+    background: rgb(241 245 249); /* slate-100 */
+    padding: 0.1em 0.35em;
+    border-radius: 0.25rem;
+}
+
+.page-content pre {
+    background: rgb(15 23 42); /* slate-900 */
+    color: rgb(241 245 249); /* slate-100 */
+    padding: 1em 1.25em;
+    border-radius: 0.75rem;
+    overflow-x: auto;
+    margin: 1.25em 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.page-content pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+.page-content hr {
+    margin: 2em 0;
+    border: 0;
+    border-top: 1px solid rgb(226 232 240); /* slate-200 */
+}
+
+.page-content img {
+    border-radius: 0.75rem;
+    max-width: 100%;
+    height: auto;
+}
+
+.page-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25em 0;
+}
+
+.page-content th,
+.page-content td {
+    text-align: start;
+    padding: 0.5em 0.75em;
+    border-bottom: 1px solid rgb(226 232 240);
+}
+
+.page-content th {
+    font-weight: 600;
+    background: rgb(248 250 252); /* slate-50 */
+}
+
+/*
+ * Dark-mode overrides for the public/admin .page-content surface.
+ * Used by both /p/{slug} pages and the in-admin Markdown preview pane.
+ * Buyer report 2026-05-21: preview pane in dark mode showed
+ * serif headings as dark slate-950 on a dark background — unreadable.
+ */
+.dark .page-content {
+    color: rgb(228 228 231); /* zinc-200 */
+}
+
+.dark .page-content h1,
+.dark .page-content h2,
+.dark .page-content h3,
+.dark .page-content h4 {
+    color: rgb(244 244 245); /* zinc-100 */
+}
+
+.dark .page-content a {
+    color: rgb(94 234 212); /* teal-300 */
+}
+
+.dark .page-content blockquote {
+    border-inline-start-color: rgb(63 63 70); /* zinc-700 */
+    color: rgb(161 161 170); /* zinc-400 */
+}
+
+.dark .page-content code {
+    background: rgb(39 39 42); /* zinc-800 */
+    color: rgb(244 244 245); /* zinc-100 */
+}
+
+.dark .page-content pre {
+    background: rgb(9 9 11); /* zinc-950 */
+    color: rgb(228 228 231); /* zinc-200 */
+}
+
+.dark .page-content hr {
+    border-top-color: rgb(63 63 70); /* zinc-700 */
+}
+
+.dark .page-content th,
+.dark .page-content td {
+    border-bottom-color: rgb(63 63 70); /* zinc-700 */
+}
+
+.dark .page-content th {
+    background: rgb(24 24 27); /* zinc-900 */
+}

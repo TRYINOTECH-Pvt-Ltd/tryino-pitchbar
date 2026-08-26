@@ -1,0 +1,79 @@
+.pitchbar-settings .pitchbar-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 18px;
+    margin-bottom: 6px;
+}
+
+.pitchbar-settings .pitchbar-test-result {
+    display: inline-block;
+    margin-left: 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 4px 8px;
+    border-radius: 4px;
+    min-height: 22px;
+}
+
+.pitchbar-settings .pitchbar-test-result.is-busy {
+    color: #50575e;
+    background: #f0f0f1;
+}
+
+.pitchbar-settings .pitchbar-test-result.is-success {
+    color: #1e6e2e;
+    background: #e8f5ea;
+    border: 1px solid #b8d9bf;
+}
+
+.pitchbar-settings .pitchbar-test-result.is-error {
+    color: #8a1f11;
+    background: #fbeaea;
+    border: 1px solid #e0b4b4;
+}
+
+/* When a diagnostic block is rendered the panel grows to its full
+   width so the URL / body excerpt has room to breathe. */
+.pitchbar-settings .pitchbar-test-result.pitchbar-diag {
+    display: block;
+    margin: 12px 0 0;
+    max-width: 720px;
+}
+
+.pitchbar-settings .pitchbar-diag-summary {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.pitchbar-settings .pitchbar-diag-toggle {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: #8a1f11;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.pitchbar-settings .pitchbar-diag-toggle:hover,
+.pitchbar-settings .pitchbar-diag-toggle:focus {
+    color: #5a0f00;
+    outline: none;
+}
+
+.pitchbar-settings .pitchbar-diag-details {
+    margin-top: 8px;
+    padding: 8px 10px;
+    background: #fff;
+    border: 1px solid #e0b4b4;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: #4a1004;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 320px;
+    overflow: auto;
+}

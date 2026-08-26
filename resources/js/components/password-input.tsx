@@ -1,0 +1,41 @@
+import { Eye, EyeOff } from 'lucide-react';
+import type { ComponentProps, Ref } from 'react';
+import { useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { useT } from '@/lib/i18n';
+import { cn } from '@/lib/utils';
+
+export default function PasswordInput({
+    className,
+    ref,
+    ...props
+}: Omit<ComponentProps<'input'>, 'type'> & { ref?: Ref<HTMLInputElement> }) {
+    const { t } = useT();
+    const [showPassword, setShowPassword] = useState(false);
+
+    return (
+        <div className="relative">
+            <Input
+                type={showPassword ? 'text' : 'password'}
+                className={cn('pe-10', className)}
+                ref={ref}
+                {...props}
+            />
+            <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 end-0 flex items-center rounded-e-md px-3 text-muted-foreground transition hover:bg-accent hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+                aria-label={
+                    showPassword ? t('Hide password') : t('Show password')
+                }
+                tabIndex={-1}
+            >
+                {showPassword ? (
+                    <EyeOff className="size-4" />
+                ) : (
+                    <Eye className="size-4" />
+                )}
+            </button>
+        </div>
+    );
+}

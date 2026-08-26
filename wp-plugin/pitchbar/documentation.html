@@ -1,0 +1,1225 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pitchbar for WordPress — Documentation</title>
+    <meta name="description" content="Install, configure, and operate the Pitchbar WordPress + WooCommerce plugin. Streaming AI chat widget, content sync, page-builder support, and WooCommerce deep integration.">
+    <style>
+        /* Reset + base typography */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.65;
+            color: #1a202c;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: #2563eb; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        code, pre, kbd {
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+            font-size: 13.5px;
+        }
+        code {
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 1px 6px;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+        }
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 14px 18px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 16px 0;
+            line-height: 1.55;
+        }
+        pre code {
+            background: transparent;
+            color: inherit;
+            border: 0;
+            padding: 0;
+            font-size: 13px;
+        }
+        kbd {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-bottom-width: 2px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #475569;
+        }
+        h1, h2, h3, h4 {
+            color: #0f172a;
+            font-weight: 700;
+            line-height: 1.25;
+            margin: 32px 0 12px;
+        }
+        h1 { font-size: 32px; margin-top: 0; }
+        h2 { font-size: 22px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        h3 { font-size: 17px; }
+        h4 { font-size: 15px; color: #334155; }
+        p { margin: 12px 0; }
+        ul, ol { margin: 12px 0; padding-left: 22px; }
+        li { margin: 4px 0; }
+        hr { border: 0; border-top: 1px solid #e2e8f0; margin: 36px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+        th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+        th { background: #f8fafc; font-weight: 600; color: #334155; }
+
+        /* Layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 28px 20px 40px;
+            background: #fafafa;
+            border-right: 1px solid #e5e7eb;
+        }
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 26px;
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .sidebar-brand .orb {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #a78bfa 0%, #6366f1 35%, #1e1b4b 90%);
+            box-shadow: inset -2px -2px 6px rgba(255,255,255,0.18), inset 2px 2px 4px rgba(0,0,0,0.15);
+        }
+        .sidebar-version {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            background: #e2e8f0;
+            padding: 1px 8px;
+            border-radius: 999px;
+            margin-left: 8px;
+            letter-spacing: 0.3px;
+        }
+        .sidebar-section { margin-bottom: 18px; }
+        .sidebar-heading {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            font-weight: 700;
+            color: #64748b;
+            margin: 0 0 8px;
+            padding: 0 4px;
+        }
+        .sidebar a {
+            display: block;
+            color: #475569;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 13.5px;
+            transition: background 120ms ease, color 120ms ease;
+        }
+        .sidebar a:hover { background: #eef2ff; color: #0f172a; text-decoration: none; }
+        .sidebar a.active { background: #2563eb; color: #ffffff; }
+
+        .content {
+            padding: 40px 56px 64px;
+            max-width: 900px;
+        }
+
+        /* Callouts */
+        .callout {
+            margin: 16px 0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .callout-info { background: #eff6ff; border-color: #bfdbfe; color: #1e40af; }
+        .callout-warn { background: #fefce8; border-color: #fde047; color: #854d0e; }
+        .callout-danger { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+        .callout-success { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
+        .callout strong { color: inherit; }
+
+        /* Step list */
+        ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+        ol.steps > li {
+            counter-increment: step;
+            position: relative;
+            padding-left: 36px;
+            margin: 14px 0;
+            min-height: 28px;
+        }
+        ol.steps > li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background: #2563eb;
+            color: #fff;
+            font-size: 12.5px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Endpoint */
+        .endpoint {
+            margin: 18px 0;
+            padding: 14px 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+        .endpoint-head { display: flex; align-items: center; gap: 10px; font-family: ui-monospace, monospace; font-size: 13.5px; }
+        .method {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .method-post { background: #fde68a; color: #7c2d12; }
+        .method-get { background: #bfdbfe; color: #1e3a8a; }
+        .endpoint-path { color: #0f172a; font-weight: 600; }
+        .endpoint-desc { margin: 6px 0 0; color: #475569; font-size: 13px; }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 1px 8px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            vertical-align: 1px;
+        }
+        .badge-indexed { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .badge-stale { background: #fef3c7; color: #92400e; border: 1px solid #fbbf24; }
+        .badge-unindexed { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+
+        @media (max-width: 920px) {
+            .layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid #e5e7eb; }
+            .content { padding: 28px 22px 48px; }
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="orb" aria-hidden="true"></span>
+            Pitchbar for WordPress
+            <span class="sidebar-version">v2.0.4</span>
+        </div>
+
+        <nav>
+            <div class="sidebar-section">
+                <p class="sidebar-heading">Getting started</p>
+                <a href="#overview">Overview</a>
+                <a href="#requirements">Requirements</a>
+                <a href="#quick-start">Quick start</a>
+                <a href="#install">Install &amp; activate</a>
+                <a href="#connect">Connect to your workspace</a>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="sidebar-heading">Content sync</p>
+                <a href="#posts-sync">Posts &amp; pages</a>
+                <a href="#page-builders">Page builders</a>
+                <a href="#products-sync">WooCommerce products</a>
+                <a href="#admin-badges">Indexed badges</a>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="sidebar-heading">WooCommerce features</p>
+                <a href="#shopper-context">Shopper context</a>
+                <a href="#order-lookup">Order lookup tool</a>
+                <a href="#coupons">Coupons</a>
+                <a href="#abandoned-cart">Abandoned cart</a>
+                <a href="#leads">Lead mirroring</a>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="sidebar-heading">Reference</p>
+                <a href="#rest-api">REST API</a>
+                <a href="#security">Security model</a>
+                <a href="#filters">Filters &amp; hooks</a>
+                <a href="#troubleshooting">Troubleshooting</a>
+                <a href="#changelog">Changelog</a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="content">
+
+<h1>Pitchbar for WordPress — Documentation</h1>
+
+<p>
+    Welcome. This document covers everything you need to install,
+    configure, and operate the Pitchbar WordPress &amp; WooCommerce
+    plugin. The plugin connects your WordPress site to a Pitchbar
+    workspace and adds a streaming AI sales chat widget, full content
+    sync, and deep WooCommerce integration.
+</p>
+
+<div class="callout callout-info">
+    <strong>You need a Pitchbar workspace to use this plugin.</strong>
+    The plugin is the bridge between WordPress and your Pitchbar agent
+    — it does not contain the AI itself. Create a workspace in your
+    Pitchbar deployment (or purchase the main Pitchbar SaaS item)
+    before installing.
+</div>
+
+<h2 id="overview">Overview</h2>
+
+<p>
+    Pitchbar for WordPress is a companion plugin that does six things:
+</p>
+
+<ol>
+    <li><strong>Embeds the Pitchbar widget</strong> on every public
+        page via <code>wp_footer</code>, scoped to the post types you
+        opt into.</li>
+    <li><strong>Syncs your content</strong> — posts, pages, custom
+        post types, and the entire WooCommerce catalog — into the
+        agent's knowledge base.</li>
+    <li><strong>Renders page-builder pages</strong> properly
+        (Elementor, Divi, Beaver Builder, Oxygen, Bricks) so their
+        visible HTML actually reaches the agent.</li>
+    <li><strong>Integrates with WooCommerce</strong> — logged-in
+        shopper context, order lookup, coupon emission + apply,
+        abandoned-cart trigger, and lead mirroring back into WP.</li>
+    <li><strong>Shows sync status</strong> per post + product in the
+        WP admin list tables with green / yellow / gray pills.</li>
+    <li><strong>Authenticates securely in both directions</strong>
+        — Bearer token outbound, HMAC-signed callbacks inbound.</li>
+</ol>
+
+<p>
+    The plugin's source lives in the Pitchbar monorepo at
+    <code>wp-plugin/pitchbar/</code> and ships as a versioned zip you
+    install from <strong>Plugins → Add New → Upload Plugin</strong>.
+</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<table>
+    <thead><tr><th>Component</th><th>Minimum</th><th>Tested through</th></tr></thead>
+    <tbody>
+        <tr><td>WordPress</td><td>6.4</td><td>6.6</td></tr>
+        <tr><td>PHP</td><td>7.4</td><td>8.4</td></tr>
+        <tr><td>WooCommerce</td><td>8.0 (optional)</td><td>9.x</td></tr>
+        <tr><td>Multisite</td><td>Supported per-site</td><td>—</td></tr>
+        <tr><td>Page builders</td><td>Elementor (Free + Pro), Divi, Beaver Builder, Oxygen, Bricks</td><td>—</td></tr>
+        <tr><td>RTL locales</td><td>Yes (Arabic, Hebrew, Persian, Urdu, ...)</td><td>—</td></tr>
+    </tbody>
+</table>
+
+<p>
+    The plugin core (widget embed + post sync) runs on a non-Woo site.
+    Every WooCommerce-specific feature is wrapped behind a
+    <code>class_exists('WooCommerce')</code> guard, so the plugin
+    never breaks anything when WooCommerce isn't installed.
+</p>
+
+<h2 id="quick-start">Quick start</h2>
+
+<ol class="steps">
+    <li>Upload <code>pitchbar.zip</code> via <strong>Plugins → Add New → Upload Plugin</strong>.</li>
+    <li>Activate the plugin.</li>
+    <li>Open <strong>Settings → Pitchbar</strong>.</li>
+    <li>Paste your Pitchbar workspace <strong>base URL</strong> and an <strong>API token</strong> (created at <code>Settings → API tokens</code> in your Pitchbar admin).</li>
+    <li>Click <strong>Test connection</strong>. The plugin lists agents in your workspace.</li>
+    <li>Pick an agent and <strong>Save changes</strong>.</li>
+    <li>Click <strong>Sync posts now</strong> (and, on Woo sites, <strong>Sync products now</strong>) so the agent has knowledge to answer from.</li>
+    <li>Visit any public page on the site. The widget loads in the bottom-right corner.</li>
+</ol>
+
+<h2 id="install">Install &amp; activate</h2>
+
+<h3>From CodeCanyon</h3>
+
+<ol>
+    <li>Download <code>pitchbar.zip</code> from your CodeCanyon downloads.</li>
+    <li>Sign in to WordPress as a user with <code>manage_options</code> (usually administrator).</li>
+    <li>Go to <strong>Plugins → Add New → Upload Plugin</strong>.</li>
+    <li>Choose <code>pitchbar.zip</code>. Click <strong>Install Now</strong>.</li>
+    <li>Click <strong>Activate Plugin</strong>.</li>
+</ol>
+
+<h3>From your Pitchbar admin (self-built)</h3>
+
+<p>
+    Super-admins of a Pitchbar deployment can produce an install-ready
+    zip from the platform admin without ssh access:
+</p>
+
+<ol>
+    <li>Sign in to your Pitchbar admin as a super_admin.</li>
+    <li>Open <strong>/admin/integrations/wordpress</strong>.</li>
+    <li>Click <strong>Build latest</strong>. The server runs <code>php artisan pitchbar:build-wp-plugin</code> against the bundled source and writes a versioned archive to <code>storage/app/private/wp-plugin-builds/pitchbar-{version}.zip</code>.</li>
+    <li>Click <strong>Download</strong> next to the resulting row.</li>
+</ol>
+
+<div class="callout callout-info">
+    <strong>Multisite:</strong> activate per site (not network-wide).
+    Each subsite connects to its own Pitchbar workspace and can attach
+    a different agent. Network-wide activation is not supported in v2.x.
+</div>
+
+<h2 id="connect">Connect to your workspace</h2>
+
+<p>
+    After activation, you'll see a <strong>&ldquo;Pitchbar is installed but
+    not configured yet&rdquo;</strong> notice in the admin. Open
+    <strong>Settings → Pitchbar</strong> to wire up the connection.
+</p>
+
+<h3>Create an API token in Pitchbar</h3>
+
+<ol class="steps">
+    <li>Sign in to your Pitchbar workspace.</li>
+    <li>Open <strong>Settings → API tokens</strong>.</li>
+    <li>Click <strong>Create token</strong>. Name it after your WordPress site (e.g. <code>my-site.com</code>).</li>
+    <li>Select the <code>wp:integration</code> scope.</li>
+    <li>Copy the plaintext value shown once — it's never displayed again.</li>
+</ol>
+
+<h3>Paste into the plugin settings</h3>
+
+<table>
+    <thead><tr><th>Field</th><th>Example</th><th>Notes</th></tr></thead>
+    <tbody>
+        <tr><td>Pitchbar base URL</td><td><code>https://app.pitchbar.example</code></td><td>No trailing slash. Just the workspace host.</td></tr>
+        <tr><td>API token</td><td><code>pbar_…</code></td><td>The plaintext you copied above. Stored in <code>wp_options</code>.</td></tr>
+    </tbody>
+</table>
+
+<p>
+    Click <strong>Test connection</strong>. On success the panel shows
+    the workspace name and populates the <strong>Attached agent</strong>
+    dropdown with every agent in that workspace. Pick one. Save changes.
+</p>
+
+<h3>Diagnostics on failure</h3>
+
+<p>
+    Test connection surfaces detailed errors instead of a generic
+    &ldquo;Connection failed&rdquo;:
+</p>
+
+<ul>
+    <li><strong>HTTP status</strong> (401, 403, 404, 5xx) mapped to plain English advice.</li>
+    <li><strong>The URL the plugin tried</strong> — copy/paste into a browser to verify reachability.</li>
+    <li><strong>Transport code</strong> on network failure (cURL error code, DNS resolution failure, SSL handshake error).</li>
+    <li><strong>First 800 chars of the upstream response body</strong> — useful when a reverse proxy returns an HTML error page instead of JSON.</li>
+</ul>
+
+<p>
+    Click <strong>Show details</strong> to reveal the full diagnostic
+    block. Common status hints:
+</p>
+
+<table>
+    <thead><tr><th>Status</th><th>Likely cause</th><th>Fix</th></tr></thead>
+    <tbody>
+        <tr><td>401</td><td>API token invalid or revoked</td><td>Reissue in Pitchbar → Settings → API tokens</td></tr>
+        <tr><td>403</td><td>Token missing <code>wp:integration</code> ability</td><td>Recreate the token with that scope</td></tr>
+        <tr><td>404</td><td>Pitchbar app not fully deployed</td><td>Verify the base URL points at the Pitchbar host, not a marketing redirect</td></tr>
+        <tr><td>419</td><td>CSRF mismatch</td><td>Base URL should point at the API host, not a redirect chain</td></tr>
+        <tr><td>429</td><td>Token rate-limited</td><td>Wait a minute and retry</td></tr>
+        <tr><td>5xx</td><td>Pitchbar server error</td><td>Tail <code>storage/logs/laravel.log</code> on the Pitchbar host</td></tr>
+    </tbody>
+</table>
+
+<h3>Widget display options</h3>
+
+<table>
+    <thead><tr><th>Setting</th><th>Default</th><th>Effect</th></tr></thead>
+    <tbody>
+        <tr><td>Enabled</td><td>On</td><td>Injects the widget on the front end. Uncheck to disable without disconnecting.</td></tr>
+        <tr><td>Post types</td><td>Posts, Pages</td><td>Tick more to load the widget on custom post types' singular pages.</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="posts-sync">Content sync — posts &amp; pages</h2>
+
+<p>
+    Knowledge sync is what makes the agent useful: the AI can only
+    answer from content it has been given. The plugin pushes posts,
+    pages, and the custom post types you enabled to your Pitchbar
+    agent so the chat can answer from your actual site copy.
+</p>
+
+<h3>Bulk sync</h3>
+
+<p>
+    On the Settings page (when configured), the <strong>Knowledge
+    sync</strong> panel exposes a <strong>Sync posts now</strong>
+    button. Click it once after the initial connect. The plugin
+    paginates <code>WP_Query</code> in batches of 50, posts each batch
+    to <code>POST /api/v1/wp/posts/sync</code> on Pitchbar, and stamps
+    a sync timestamp + content hash on every successfully-synced row.
+</p>
+
+<div class="callout callout-success">
+    <strong>Idempotent.</strong> Pitchbar's server-side syncer
+    short-circuits unchanged posts via the content hash. Re-running
+    &ldquo;Sync now&rdquo; back-to-back is safe and only sends what's
+    actually changed.
+</div>
+
+<h3>Delta hooks (automatic)</h3>
+
+<p>
+    Once configured, the plugin keeps the agent up to date
+    automatically:
+</p>
+
+<ul>
+    <li><code>save_post</code> (priority 20) — pushes the post to <code>POST /api/v1/wp/posts/changed</code> with <code>action: "upsert"</code>. Drafts and revisions are skipped.</li>
+    <li><code>wp_trash_post</code> / <code>before_delete_post</code> — push <code>action: "delete"</code> so the agent removes the entry from its knowledge base.</li>
+</ul>
+
+<h3>Resumable on shared hosting</h3>
+
+<p>
+    Many shared hosts cap <code>max_execution_time</code> at 30 seconds.
+    A site with thousands of posts can't finish in one pass — the
+    plugin handles this gracefully:
+</p>
+
+<ol>
+    <li>Hard 20-second budget per pass.</li>
+    <li>If the budget is exceeded with pages still queued, the plugin persists a resume marker in a transient (<code>pitchbar_post_sync_resume</code>, 1 hour TTL).</li>
+    <li>It schedules a single WP-Cron event 30 seconds out (<code>pitchbar_run_full_sync_event</code>) which resumes from the same page.</li>
+    <li>A soft info notice appears on the <strong>Plugins</strong> screen while the background tick is finishing.</li>
+    <li>Re-running &ldquo;Sync now&rdquo; manually resumes from the same point — every batch is idempotent on <code>external_id</code>.</li>
+</ol>
+
+<h3>Empty-body fallback</h3>
+
+<p>
+    Some posts have empty <code>post_content</code> — featured-image-only
+    posts, builder-owned stubs, etc. The plugin synthesises a body from
+    <code>title + excerpt + taxonomy terms</code> before sending so the
+    agent always has indexable text to work with.
+</p>
+
+<hr>
+
+<h2 id="page-builders">Page builders</h2>
+
+<p>
+    Most page builders stash the actual layout in postmeta and leave
+    <code>post_content</code> either empty or as a shortcode stub. A
+    naive content sync would skip every page on a builder site. The
+    plugin invokes each builder's native renderer to produce the
+    visible HTML before sending.
+</p>
+
+<table>
+    <thead><tr><th>Builder</th><th>Detection</th><th>Renderer</th></tr></thead>
+    <tbody>
+        <tr><td>Elementor (Free + Pro)</td><td><code>_elementor_edit_mode</code> postmeta</td><td><code>\Elementor\Plugin::frontend()-&gt;get_builder_content_for_display()</code></td></tr>
+        <tr><td>Divi</td><td><code>_et_pb_use_builder</code> postmeta</td><td><code>setup_postdata()</code> + <code>the_content</code> filter</td></tr>
+        <tr><td>Beaver Builder</td><td><code>_fl_builder_enabled</code> postmeta</td><td><code>FLBuilder::render_content_by_id()</code></td></tr>
+        <tr><td>Oxygen</td><td><code>ct_builder_shortcodes</code> postmeta</td><td><code>ct_template_output</code> filter</td></tr>
+        <tr><td>Bricks</td><td><code>_bricks_page_content_2</code> postmeta</td><td><code>Bricks\Frontend::render_content()</code></td></tr>
+    </tbody>
+</table>
+
+<p>
+    Detection is first-match-wins based on each builder's own postmeta
+    keys, so a site that switched builders mid-project never
+    double-renders. If none match, the plugin falls back to the
+    standard <code>the_content</code> filter pipeline.
+</p>
+
+<h3>Override the rendered HTML</h3>
+
+<p>
+    The <code>pitchbar_post_content_html</code> filter lets you
+    post-process the rendered HTML before it's sent to Pitchbar — strip
+    navigation menus, force a custom Elementor template, redact a
+    block, whatever you need:
+</p>
+
+<pre><code>add_filter('pitchbar_post_content_html', function ($html, $post) {
+    // Strip everything between &lt;nav&gt;...&lt;/nav&gt; tags
+    $html = preg_replace('#&lt;nav\b[^&gt;]*&gt;.*?&lt;/nav&gt;#is', '', $html);
+    return $html;
+}, 10, 2);</code></pre>
+
+<hr>
+
+<h2 id="products-sync">WooCommerce products</h2>
+
+<p>
+    When WooCommerce is active, a second panel appears on the
+    Settings page: <strong>WooCommerce products</strong>. Click
+    <strong>Sync products now</strong> to push the catalog. Same
+    architecture as posts — batched, resumable, idempotent on
+    <code>external_id</code>.
+</p>
+
+<h3>Every product type is included</h3>
+
+<p>
+    The product syncer does NOT filter by type — simple, variable,
+    grouped, external, plus subscription, bundle, membership, booking,
+    and any custom product type extensions register. A type filter
+    was the cause of a real symptom on subscription / multilingual
+    stores where &ldquo;Sync now&rdquo; returned <code>0 products,
+    0 queued</code> against a catalog of 10 products.
+</p>
+
+<h3>Fallback WP_Query</h3>
+
+<p>
+    Some hosts and extensions hook <code>wc_get_products</code> in
+    ways that hide the entire catalog (subscription gates, multilingual
+    scope filters, custom-types-of-the-month). When the first call
+    returns 0 products and we're on page 1, the plugin retries with a
+    raw <code>WP_Query</code> against <code>post_type=product</code>.
+    A <code>Logger::warn</code> records this so admins can debug.
+</p>
+
+<h3>What gets synced per product</h3>
+
+<table>
+    <thead><tr><th>Field</th><th>Source</th></tr></thead>
+    <tbody>
+        <tr><td>SKU</td><td><code>get_sku()</code></td></tr>
+        <tr><td>Name</td><td><code>get_name()</code></td></tr>
+        <tr><td>Permalink</td><td><code>get_permalink()</code></td></tr>
+        <tr><td>Image URL</td><td>First gallery image (raw URL, so the LLM can emit a product card with a real thumbnail)</td></tr>
+        <tr><td>Short + long description</td><td><code>get_short_description()</code> + <code>get_description()</code></td></tr>
+        <tr><td>Price + sale price + currency</td><td><code>get_price()</code>, <code>get_sale_price()</code>, <code>get_woocommerce_currency()</code></td></tr>
+        <tr><td>Stock status</td><td><code>get_stock_status()</code> (in stock / out of stock / on backorder)</td></tr>
+        <tr><td>On sale</td><td><code>is_on_sale()</code></td></tr>
+        <tr><td>Categories</td><td>Product category term names</td></tr>
+        <tr><td>Attributes</td><td>All product attribute slugs + values</td></tr>
+    </tbody>
+</table>
+
+<h3>Coupon snapshot rides along</h3>
+
+<p>
+    After every successful full product sync (not on resumed-out
+    partial runs), the plugin calls
+    <code>CouponSyncer-&gt;run()</code> which posts the store's
+    currently-valid <code>shop_coupon</code> CPT entries to
+    <code>POST /api/v1/wp/coupons/sync</code>. Expired and exhausted
+    codes are filtered out. The agent's system-prompt fragment lists
+    these so it never invents codes that don't exist.
+</p>
+
+<hr>
+
+<h2 id="admin-badges">&ldquo;Indexed&rdquo; admin badges</h2>
+
+<p>
+    Every successful sync stamps two values on each post / product:
+    <code>_pitchbar_synced_at</code> (timestamp) and
+    <code>_pitchbar_synced_hash</code> (content hash sent to the
+    server). A new <strong>Pitchbar</strong> column on the Posts,
+    Pages, and Products admin list tables turns those into a visible
+    pill per row:
+</p>
+
+<table>
+    <thead><tr><th>Pill</th><th>Condition</th></tr></thead>
+    <tbody>
+        <tr><td><span class="badge badge-indexed">Indexed</span></td><td>The post has a sync timestamp AND <code>post_modified_gmt</code> has NOT advanced past it.</td></tr>
+        <tr><td><span class="badge badge-stale">Out of date</span></td><td>The post has a sync timestamp but has been edited since (post_modified_gmt &gt; synced_at).</td></tr>
+        <tr><td><span class="badge badge-unindexed">Not indexed</span></td><td>No <code>_pitchbar_synced_at</code> meta — never synced.</td></tr>
+    </tbody>
+</table>
+
+<p>
+    The column has a forced 110px width via <code>admin_head</code>
+    CSS so the header text never wraps to one letter per line on
+    crowded WooCommerce screens.
+</p>
+
+<hr>
+
+<h2 id="shopper-context">WooCommerce — logged-in shopper context</h2>
+
+<p>
+    When a logged-in WooCommerce customer browses the site, the plugin
+    issues a short-lived signed token attached to the widget loader as
+    <code>data-shopper-token</code>. The Pitchbar server verifies the
+    signature on <code>/widget/init</code> and lifts the claims into
+    the issued widget JWT so the chat session is bound to the visitor.
+</p>
+
+<h3>Claim shape</h3>
+
+<pre><code>{
+    "wp_user_id": "42",
+    "email_hash": "sha256_hex_of_lowercased_trimmed_email",
+    "source": "wordpress"
+}</code></pre>
+
+<p>
+    <strong>The plaintext email is never sent.</strong> Only the
+    SHA-256 hash rides in the claims, used server-side for dedupe and
+    correlation. The signature is HMAC-SHA256 with the workspace's
+    <code>shopper_signing_secret</code> (received in the handshake
+    response and stored in <code>wp_options</code>).
+</p>
+
+<h3>Wire format</h3>
+
+<p>
+    The token is delivered as
+    <code>base64url(claims_json).hmac_sha256_hex</code>. The Pitchbar
+    server mirrors the verification path in
+    <code>App\Services\Widget\ShopperToken</code>.
+</p>
+
+<hr>
+
+<h2 id="order-lookup">WooCommerce — order lookup tool</h2>
+
+<p>
+    The agent can answer &ldquo;Where's my order?&rdquo; with real
+    order data when the visitor is signed in. Enable the
+    <code>lookup_order</code> tool on the agent in the Pitchbar admin;
+    the LLM emits a tool-call which the Pitchbar server routes back to
+    the plugin's REST endpoint.
+</p>
+
+<div class="endpoint">
+    <div class="endpoint-head">
+        <span class="method method-post">POST</span>
+        <span class="endpoint-path">/wp-json/pitchbar/v1/orders/lookup</span>
+    </div>
+    <p class="endpoint-desc">Returns the last N WooCommerce orders for the signed-in <code>wp_user_id</code>.</p>
+</div>
+
+<h3>Request</h3>
+
+<table>
+    <thead><tr><th>Header / Field</th><th>Value</th></tr></thead>
+    <tbody>
+        <tr><td><code>X-Pitchbar-Signature</code></td><td><code>t={unix_ts},v1={hmac_sha256_hex}</code> using <code>shopper_signing_secret</code></td></tr>
+        <tr><td><code>wp_user_id</code> (required)</td><td>Integer. Lifted from the signed shopper token on the chat side.</td></tr>
+        <tr><td><code>limit</code> (optional)</td><td>1–10, default 5</td></tr>
+        <tr><td><code>order_number</code> (optional)</td><td>Filter to a specific order number</td></tr>
+    </tbody>
+</table>
+
+<h3>Response</h3>
+
+<pre><code>{
+    "data": {
+        "count": 2,
+        "orders": [
+            {
+                "id": 1234,
+                "number": "1234",
+                "status": "processing",
+                "total": "49.99",
+                "currency": "USD",
+                "date_created": "2026-05-12T18:42:00+00:00",
+                "items": [
+                    { "name": "Aurora Hoodie", "qty": 1, "sku": "AH-001", "total": "49.99" }
+                ],
+                "tracking_url": "https://aftership.com/track/...",
+                "order_url": "https://shop.example.com/my-account/view-order/1234/"
+            }
+        ]
+    }
+}</code></pre>
+
+<p>
+    The tracking URL is resolved from common postmeta keys —
+    <code>_aftership_tracking_url</code>, <code>_tracking_url</code>,
+    <code>_st_tracking_link</code> — in that order. The first
+    non-empty value wins.
+</p>
+
+<hr>
+
+<h2 id="coupons">WooCommerce — coupons</h2>
+
+<p>
+    Pitchbar handles coupons in two halves: emit + apply.
+</p>
+
+<h3>Emit</h3>
+
+<p>
+    The plugin's <code>CouponSyncer</code> pushes the store's
+    currently-valid coupons (up to 50, expired and exhausted dropped)
+    to Pitchbar after every product sync. The agent's prompt fragment
+    lists them so the LLM only ever offers codes that actually work.
+</p>
+
+<p>
+    When the agent decides to offer a coupon, it emits a
+    <code>&lt;coupon/&gt;</code> block in chat. The widget renders a
+    card with the code, a human-readable label (&ldquo;15% off&rdquo;,
+    &ldquo;$10 off your order&rdquo;), and two buttons:
+    <strong>Copy</strong> and <strong>Apply</strong>.
+</p>
+
+<h3>Apply</h3>
+
+<p>
+    The Apply button hits the plugin's REST endpoint:
+</p>
+
+<div class="endpoint">
+    <div class="endpoint-head">
+        <span class="method method-post">POST</span>
+        <span class="endpoint-path">/wp-json/pitchbar/v1/cart/coupon</span>
+    </div>
+    <p class="endpoint-desc">Validates the code with <code>WC_Coupon</code>; on success stages it in a 15-minute transient keyed by conversation id.</p>
+</div>
+
+<p>
+    The plugin can't call <code>$cart-&gt;apply_coupon()</code>
+    directly from a REST context because WC's cart machinery expects
+    the cart-page session. Instead the plugin:
+</p>
+
+<ol>
+    <li>Validates the code with <code>new WC_Coupon($code)</code> — invalid / expired codes return 400 immediately.</li>
+    <li>Stages the code in a 15-minute transient <code>pitchbar_pending_coupon_{conversation_id}</code>.</li>
+    <li>Sets a first-party <code>pitchbar_conv_id</code> cookie on the visitor's domain so the plugin can correlate the next page load.</li>
+    <li>On the visitor's next cart load (<code>woocommerce_load_cart_from_session</code>), the plugin reads the cookie, looks up the staged code, and fires <code>WC()-&gt;cart-&gt;apply_coupon($code)</code>. The transient is deleted after apply.</li>
+</ol>
+
+<div class="callout callout-info">
+    <strong>Why a transient?</strong> A cart-load hook is the only
+    place WC's session, the cart object, and the visitor's identity
+    line up. Staging the code and applying on the next cart load is
+    how the visitor sees the discount actually take effect on their
+    next checkout step.
+</div>
+
+<hr>
+
+<h2 id="abandoned-cart">WooCommerce — abandoned cart</h2>
+
+<p>
+    The plugin enqueues a tiny front-end script
+    (<code>assets/cart-state.js</code>) that mirrors WooCommerce's
+    jQuery cart events into <code>localStorage</code> under the key
+    <code>pitchbar_cart_state</code>:
+</p>
+
+<pre><code>{
+    "items": 2,
+    "timestamp": 1731600000000
+}</code></pre>
+
+<ul>
+    <li><code>added_to_cart</code> increments items + bumps timestamp.</li>
+    <li><code>removed_from_cart</code> decrements items.</li>
+    <li>Any visit to a checkout / order-received / order-pay / thank-you path clears the state entirely.</li>
+    <li>Fallback DOM click handler on <code>.add_to_cart_button</code> + <code>.single_add_to_cart_button</code> for sites with no jQuery on the front end.</li>
+</ul>
+
+<p>
+    The widget reads this state on every page load. When a cart sits
+    idle longer than the threshold configured in the agent's behavior
+    rules (admin UI exposes <code>abandoned_cart</code> as a trigger
+    kind), the widget engages proactively with the configured message.
+</p>
+
+<hr>
+
+<h2 id="leads">WooCommerce — lead mirroring</h2>
+
+<p>
+    When the chat captures a lead (visitor fills the in-bar form), the
+    Pitchbar server calls back to the plugin so the contact lands in
+    WordPress without you leaving the admin.
+</p>
+
+<div class="endpoint">
+    <div class="endpoint-head">
+        <span class="method method-post">POST</span>
+        <span class="endpoint-path">/wp-json/pitchbar/v1/leads</span>
+    </div>
+    <p class="endpoint-desc">Creates or updates a WP user mirroring the captured lead. Idempotent on email.</p>
+</div>
+
+<h3>Behaviour</h3>
+
+<ul>
+    <li>If WooCommerce is active, the plugin calls <code>wc_create_new_customer($email, '', '', ['first_name' =&gt; $name])</code> so the lead is a real WC customer immediately.</li>
+    <li>If WooCommerce is absent, the plugin creates a regular WP user with role <code>subscriber</code> via <code>wp_create_user</code>.</li>
+    <li>Existing users (matched by email) are not duplicated — only their meta is refreshed.</li>
+    <li><code>pitchbar_lead_id</code> and <code>pitchbar_conversation_id</code> are stamped in user meta for correlation.</li>
+    <li>Phone (when provided) lands in <code>billing_phone</code> user meta.</li>
+</ul>
+
+<hr>
+
+<h2 id="rest-api">REST API reference</h2>
+
+<p>
+    Two surfaces — <strong>Plugin → Pitchbar</strong> (outbound) and
+    <strong>Pitchbar → Plugin</strong> (inbound). Each endpoint is
+    authenticated separately.
+</p>
+
+<h3>Plugin → Pitchbar (outbound)</h3>
+
+<p>
+    All outbound calls carry <code>Authorization: Bearer {api_token}</code>
+    plus an HMAC <code>X-Pitchbar-Signature</code> header (using the
+    same token as the shared secret). The signature payload is
+    <code>{unix_ts}.{body}</code>; the header format is
+    <code>t={ts},v1={hmac_sha256_hex}</code>. 5-minute timestamp
+    window.
+</p>
+
+<div class="endpoint">
+    <div class="endpoint-head"><span class="method method-post">POST</span><span class="endpoint-path">/api/v1/wp/handshake</span></div>
+    <p class="endpoint-desc">Validates the API token, returns the workspace name, the agents in the workspace, the recommended <code>site_type</code>, and the <code>shopper_signing_secret</code> for callback auth.</p>
+</div>
+
+<div class="endpoint">
+    <div class="endpoint-head"><span class="method method-post">POST</span><span class="endpoint-path">/api/v1/wp/posts/sync</span></div>
+    <p class="endpoint-desc">Bulk push of up to 50 posts per batch. Server returns counts of queued / skipped-unchanged rows.</p>
+</div>
+
+<div class="endpoint">
+    <div class="endpoint-head"><span class="method method-post">POST</span><span class="endpoint-path">/api/v1/wp/posts/changed</span></div>
+    <p class="endpoint-desc">Single-post delta — <code>action: "upsert" | "delete"</code>. Fires from <code>save_post</code> / trash hooks.</p>
+</div>
+
+<div class="endpoint">
+    <div class="endpoint-head"><span class="method method-post">POST</span><span class="endpoint-path">/api/v1/wp/products/sync</span></div>
+    <p class="endpoint-desc">Bulk push of up to 50 WooCommerce products per batch.</p>
+</div>
+
+<div class="endpoint">
+    <div class="endpoint-head"><span class="method method-post">POST</span><span class="endpoint-path">/api/v1/wp/products/changed</span></div>
+    <p class="endpoint-desc">Single-product delta from WC's <code>woocommerce_new_product</code> / <code>update_product</code> / <code>delete_product</code> / <code>trash_product</code> hooks.</p>
+</div>
+
+<div class="endpoint">
+    <div class="endpoint-head"><span class="method method-post">POST</span><span class="endpoint-path">/api/v1/wp/coupons/sync</span></div>
+    <p class="endpoint-desc">Snapshot of currently-valid <code>shop_coupon</code> entries (up to 50). Posted automatically after every successful full product sync.</p>
+</div>
+
+<h3>Pitchbar → Plugin (inbound)</h3>
+
+<p>
+    Every inbound endpoint verifies an <code>X-Pitchbar-Signature</code>
+    header against the locally-stored <code>shopper_signing_secret</code>.
+    A missing or mismatched signature returns 401 with a clear error
+    code (<code>missing_signature</code>, <code>plugin_unconfigured</code>,
+    or <code>signature_mismatch</code>).
+</p>
+
+<div class="endpoint">
+    <div class="endpoint-head"><span class="method method-post">POST</span><span class="endpoint-path">/wp-json/pitchbar/v1/leads</span></div>
+    <p class="endpoint-desc">Creates / updates a WP user from a captured lead. Idempotent on email.</p>
+</div>
+
+<div class="endpoint">
+    <div class="endpoint-head"><span class="method method-post">POST</span><span class="endpoint-path">/wp-json/pitchbar/v1/orders/lookup</span></div>
+    <p class="endpoint-desc">Returns the last N WooCommerce orders for <code>wp_user_id</code> with status, items, tracking URL, and view-order link.</p>
+</div>
+
+<div class="endpoint">
+    <div class="endpoint-head"><span class="method method-post">POST</span><span class="endpoint-path">/wp-json/pitchbar/v1/cart/coupon</span></div>
+    <p class="endpoint-desc">Validates a coupon code with <code>WC_Coupon</code>; on success stages it in a 15-minute transient that applies on the visitor's next cart load.</p>
+</div>
+
+<hr>
+
+<h2 id="security">Security model</h2>
+
+<p>
+    The plugin and the Pitchbar server authenticate each other with
+    two distinct credentials, in opposite directions:
+</p>
+
+<table>
+    <thead><tr><th>Direction</th><th>Credential</th><th>Notes</th></tr></thead>
+    <tbody>
+        <tr>
+            <td>Plugin → Pitchbar</td>
+            <td>Bearer API token + HMAC body signature</td>
+            <td>Token created in <code>Settings → API tokens</code>, scope <code>wp:integration</code>. Pitchbar stores only the SHA-256 hash of the plaintext. The plugin keeps the plaintext in <code>wp_options</code> — treat as a <code>wp-config.php</code>-level secret.</td>
+        </tr>
+        <tr>
+            <td>Pitchbar → Plugin</td>
+            <td>HMAC-SHA256 signature using <code>shopper_signing_secret</code></td>
+            <td>The plugin receives this per-token secret in the handshake response and stores it locally. Pitchbar uses it to sign every callback (orders, coupons, leads, shopper token) so the WordPress REST endpoints verify the caller without ever holding the bearer plaintext.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Replay window</h3>
+
+<p>
+    Both directions enforce a 5-minute timestamp window. Signatures
+    older than 300 seconds are rejected. The window is short enough to
+    stop replay attacks and wide enough to absorb clock drift between
+    hosts.
+</p>
+
+<h3>Data minimization</h3>
+
+<ul>
+    <li>The shopper token carries <code>wp_user_id</code> + the SHA-256 hash of the email — never the plaintext email.</li>
+    <li>The page-context payload carries only public taxonomies, post type, permalink, and Woo public product fields.</li>
+    <li>The plugin never sends customer order data to the AI provider — order lookup is on-demand only, server-to-server.</li>
+</ul>
+
+<h3>WordPress capability gates</h3>
+
+<ul>
+    <li>The Settings page and all AJAX endpoints require <code>manage_options</code>.</li>
+    <li>Every AJAX POST verifies a WordPress nonce (<code>pitchbar_ajax_action</code>).</li>
+    <li>REST endpoints use <code>permission_callback =&gt; '__return_true'</code> because the auth is HMAC, not WP nonce — the signature verification happens inside the controller.</li>
+</ul>
+
+<hr>
+
+<h2 id="filters">Filters &amp; hooks reference</h2>
+
+<table>
+    <thead><tr><th>Hook</th><th>Type</th><th>Purpose</th></tr></thead>
+    <tbody>
+        <tr>
+            <td><code>pitchbar_post_content_html</code></td>
+            <td>filter</td>
+            <td>Post-process the rendered HTML before sync. Receives <code>($html, $post)</code>. Use to strip nav, redact blocks, force a builder template, etc.</td>
+        </tr>
+        <tr>
+            <td><code>pitchbar_run_full_sync_event</code></td>
+            <td>action</td>
+            <td>WP-Cron continuation for resumable post sync. Fires automatically; you don't call this directly.</td>
+        </tr>
+        <tr>
+            <td><code>pitchbar_run_product_sync_event</code></td>
+            <td>action</td>
+            <td>WP-Cron continuation for resumable product sync.</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3>The widget doesn't appear on my site</h3>
+
+<ol>
+    <li>Open <strong>Settings → Pitchbar</strong>. Confirm <strong>Enabled</strong> is ticked.</li>
+    <li>Click <strong>Test connection</strong>. If the agent dropdown is empty, the workspace has no agents — create one in your Pitchbar admin first.</li>
+    <li>Confirm the current post type is in <strong>Post types</strong>. The widget is suppressed on singular pages of post types you haven't ticked.</li>
+    <li>Disable any aggressive caching plugin temporarily (WP Rocket, W3 Total Cache) and reload. Cached HTML may not contain the <code>&lt;script&gt;</code> tag yet.</li>
+    <li>View page source. Search for <code>pitchbar</code> — if the <code>&lt;script async&gt;</code> tag is present but the widget isn't, the issue is on the Pitchbar server side (open the network tab, look for the widget.js fetch).</li>
+</ol>
+
+<h3>&ldquo;Connection failed&rdquo; on Test connection</h3>
+
+<p>
+    Click <strong>Show details</strong> to reveal the diagnostic block.
+    See the status-code table in <a href="#connect">Connect to your
+    workspace</a>. Most common cause is a stale or wrong-scope API
+    token (401 / 403) — reissue with the <code>wp:integration</code>
+    scope.
+</p>
+
+<h3>&ldquo;0 products, 0 queued&rdquo; on product sync</h3>
+
+<p>
+    A multilingual scope filter or subscription gate may be hiding
+    products from <code>wc_get_products</code>. The plugin includes a
+    fallback <code>WP_Query</code> path that fires automatically on
+    page 1; check <code>wp-content/debug.log</code> for the warning
+    <code>ProductSyncer used fallback WP_Query</code>. If the
+    fallback also returns 0, the store has no published products.
+</p>
+
+<h3>Sync stuck mid-run</h3>
+
+<p>
+    The plugin shows a <strong>&ldquo;is finishing in the
+    background&rdquo;</strong> notice while a chunked sync is mid-run
+    — this is expected on large sites. The WP-Cron continuation runs
+    every 30 seconds until the catalog is fully synced. If the notice
+    persists for more than 10 minutes:
+</p>
+
+<ol>
+    <li>Confirm WP-Cron is firing on your host. If you've disabled it (<code>DISABLE_WP_CRON</code> in <code>wp-config.php</code>), you must set up a real cron hitting <code>wp-cron.php</code>.</li>
+    <li>Run <code>wp transient delete pitchbar_post_sync_resume</code> (or the product variant) to clear the resume marker.</li>
+    <li>Re-run &ldquo;Sync now&rdquo; manually.</li>
+</ol>
+
+<h3>HMAC signature mismatch</h3>
+
+<p>
+    Inbound callbacks (orders / leads / coupons) check the signature
+    against the local <code>shopper_signing_secret</code>. If this is
+    out of sync (e.g. you regenerated the API token in Pitchbar
+    without re-running Test connection), the plugin returns 401 with
+    code <code>signature_mismatch</code>. Re-run Test connection from
+    the Settings page — the new secret is delivered in the response
+    and stored locally.
+</p>
+
+<h3>Widget mirrors the wrong direction on RTL</h3>
+
+<p>
+    The plugin passes <code>data-page-dir="rtl"</code> when
+    <code>is_rtl()</code> returns true. If you've set the WordPress
+    locale to an RTL language but the theme overrides this with its
+    own LTR rules, you may need to force RTL in WordPress general
+    settings.
+</p>
+
+<h3>Posts with empty content fail with &ldquo;content_html field is required&rdquo;</h3>
+
+<p>
+    Solved as of v2.0.3 — the plugin synthesises a body from
+    <code>title + excerpt + taxonomy terms</code> when
+    <code>the_content</code> collapses to empty. If you're seeing this
+    on an older plugin version, upgrade to 2.0.3 or later.
+</p>
+
+<h3>WooCommerce column header renders one letter per line</h3>
+
+<p>
+    Solved as of v2.0.4 — the <strong>Pitchbar</strong> admin column
+    has a forced 110px width via <code>admin_head</code> CSS. Hard
+    refresh the Products list page if you're still seeing the old
+    behaviour.
+</p>
+
+<h3>Where do I see plugin logs?</h3>
+
+<p>
+    Enable <code>WP_DEBUG</code> + <code>WP_DEBUG_LOG</code> in
+    <code>wp-config.php</code>:
+</p>
+
+<pre><code>define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);</code></pre>
+
+<p>
+    Plugin warnings and informational messages land in
+    <code>wp-content/debug.log</code>. Tail it after running a sync to
+    see the per-batch diagnostics.
+</p>
+
+<hr>
+
+<h2 id="changelog">Changelog</h2>
+
+<h3>2.0.4</h3>
+<ul>
+    <li>Pitchbar admin column width. On the WooCommerce Products list (and other crowded list tables) the &ldquo;Pitchbar&rdquo; column was rendering one letter per line because WP's auto-width algorithm starved it. Forced to 110px via an <code>admin_head</code> style block.</li>
+</ul>
+
+<h3>2.0.3</h3>
+<ul>
+    <li>&ldquo;Indexed&rdquo; badge in the Posts, Pages, and Products admin lists. The plugin stamps a sync timestamp and content-hash on every post / product it ships to Pitchbar. The admin list table now renders a green &ldquo;Indexed&rdquo; pill, a yellow &ldquo;Out of date&rdquo; pill (post edited after the last sync), or a gray &ldquo;Not indexed&rdquo; pill for entries that have never been synced.</li>
+    <li>Empty-body posts no longer require a server-side validation deploy. If <code>the_content</code> collapses to an empty string, the plugin synthesises a body from <code>title + excerpt + taxonomy terms</code> before sending.</li>
+</ul>
+
+<h3>2.0.2</h3>
+<ul>
+    <li>Posts with empty content sync cleanly. Pre-fix a batch died with <code>posts.N.content_html field is required</code> the first time any post had an empty body.</li>
+    <li>WooCommerce: every product type is synced. Pre-fix the syncer filtered to <code>[simple, variable, grouped, external]</code> which silently dropped subscriptions, bundles, memberships, bookings, and custom types. Type filter removed; fallback <code>WP_Query</code> added for hosts whose <code>wc_get_products</code> hook chain hides everything.</li>
+</ul>
+
+<h3>2.0.1</h3>
+<ul>
+    <li>Test connection now reports exactly what broke. The generic &ldquo;Connection failed&rdquo; message is gone. The plugin surfaces HTTP status, the URL it tried, the transport-level cURL / DNS code on a network failure, and the first 800 chars of the upstream response body. A new &ldquo;Show details&rdquo; toggle reveals the full diagnostic block.</li>
+    <li>HTTP-status-aware advice. 401 hints to reissue the API token, 403 hints at the missing <code>wp:integration</code> ability, 404 hints that the Pitchbar app isn't fully deployed, 5xx hints at the server log.</li>
+    <li>JS catch block now prints the underlying error message instead of swallowing it.</li>
+</ul>
+
+<h3>2.0.0</h3>
+<ul>
+    <li>Page builder support. Elementor, Beaver Builder, Oxygen, and Bricks pages now sync their fully-rendered HTML. Divi posts route through <code>the_content</code> correctly now that <code>setup_postdata</code> primes the global <code>$post</code> before the filter chain runs.</li>
+    <li>WooCommerce load-order race fixed. The plugin no longer trusts <code>class_exists('WooCommerce')</code> at <code>plugins_loaded</code> priority 10. It listens to the <code>woocommerce_loaded</code> action and re-checks if WC already fired, so alphabetical plugin-load order no longer silently disables product sync, coupon sync, and the cart-coupon REST endpoint.</li>
+    <li>Resumable sync. Both post and product sync now enforce a 20-second time budget per pass. When a large site can't finish in one tick, the plugin persists a resume marker and schedules a WP-Cron continuation 30 seconds out.</li>
+    <li>Coupon enumeration via <code>shop_coupon</code> CPT. Replaces <code>wc_get_coupons()</code> (not public WC API on every release).</li>
+    <li><code>abandoned_cart</code> admin trigger. The widget evaluator already knew how to engage on cart staleness; the plugin admin UI now exposes <code>abandoned_cart</code> in the trigger-kind dropdown.</li>
+    <li>RTL widget mirroring. Embed loader now emits <code>data-page-dir</code> and <code>data-page-locale</code> so the widget mirrors correctly on Arabic, Hebrew, Persian, and Urdu sites.</li>
+    <li>Background-sync admin notice. While a chunked sync is mid-run the Plugins admin shows a soft info notice.</li>
+    <li><code>pitchbar_post_content_html</code> filter added so themes / sites can post-process the synced HTML without forking the plugin.</li>
+</ul>
+
+<h3>1.2.0</h3>
+<ul>
+    <li>Mirrors captured Pitchbar leads back into WordPress as WooCommerce customers (or WP subscribers on non-Woo sites).</li>
+    <li><code>&lt;coupon/&gt;</code> chat blocks with Copy + Apply. The Apply button stages the code on the WP cart so it kicks in on the next cart load.</li>
+    <li>CouponSyncer pushes the store's currently-valid WC coupons to Pitchbar after every product sync.</li>
+    <li><code>abandoned_cart</code> widget trigger kind. Cart-state script mirrors WC events into <code>localStorage</code>; the widget engages when the cart sits idle.</li>
+    <li><code>/wp-json/pitchbar/v1/leads</code> + <code>/wp-json/pitchbar/v1/cart/coupon</code> REST endpoints.</li>
+</ul>
+
+<h3>1.1.0</h3>
+<ul>
+    <li>Logged-in shopper context. The widget surfaces the visitor's identity to the agent (signed token, never raw email).</li>
+    <li><code>lookup_order</code> tool. The agent can fetch the visitor's recent orders, status, items, and tracking via a new plugin REST endpoint.</li>
+    <li>Test connection picks up the per-token shopper signing secret automatically.</li>
+</ul>
+
+<h3>1.0.1</h3>
+<ul>
+    <li>WordPress post / page sync as a Pitchbar knowledge source.</li>
+    <li>WooCommerce product sync with automatic ecommerce vertical switch and product card emission in chat replies.</li>
+    <li>Sync Now buttons added under Settings → Pitchbar with delta hooks on <code>save_post</code> / <code>woocommerce_update_product</code> / delete events.</li>
+</ul>
+
+<h3>1.0.0</h3>
+<ul>
+    <li>Initial release. Widget embed + connection settings.</li>
+</ul>
+
+<hr>
+
+<p style="text-align: center; color: #94a3b8; font-size: 13px; margin-top: 40px;">
+    Pitchbar for WordPress — built by the team behind Pitchbar.<br>
+    GPLv2 or later. Documentation last updated for plugin v2.0.4.
+</p>
+
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,2620 @@
+.aurora-root {
+    --paper: #fbfbf9;
+    --ink: #0a0a0a;
+    --signal: #dbff4c;
+    --muted: #6b6b68;
+    --hairline: #e4e1d8;
+    --paper-2: #f2f0e8;
+    --ink-2: #18181b;
+    --ink-soft: #1a1a1a;
+
+    --display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+    --gutter: 28px;
+    --maxw: 1440px;
+    --section-pad: 112px;
+    --rule: 1px solid var(--ink);
+    --hair: 1px solid var(--hairline);
+}
+
+.aurora-root .density-compact {
+    --section-pad: 80px;
+    --gutter: 22px;
+}
+.aurora-root .density-spacious {
+    --section-pad: 160px;
+    --gutter: 36px;
+}
+
+.aurora-root .theme-dark {
+    --paper: #0a0a0a;
+    --ink: #fbfbf9;
+    --muted: #8b8b86;
+    --hairline: #262626;
+    --paper-2: #161614;
+    --ink-2: #f2f0e9;
+}
+
+.aurora-root * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.aurora-root,
+.aurora-root {
+    background: var(--paper);
+    color: var(--ink);
+}
+.aurora-root {
+    font-family: var(--display);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'ss01', 'ss02';
+    overflow-x: hidden;
+}
+
+.aurora-root .font-grotesk {
+    --display: 'Space Grotesk', sans-serif;
+}
+.aurora-root .font-haas {
+    --display: 'Inter Tight', 'Space Grotesk', sans-serif;
+}
+.aurora-root .font-mono {
+    --display: 'JetBrains Mono', monospace;
+}
+
+.aurora-root a {
+    color: inherit;
+    text-decoration: none;
+}
+.aurora-root button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+.aurora-root img,
+.aurora-root svg {
+    display: block;
+    max-width: 100%;
+}
+.aurora-root input,
+.aurora-root textarea {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    outline: 0;
+}
+
+.aurora-root .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+.aurora-root .section {
+    padding: var(--section-pad) 0;
+}
+.aurora-root .rule {
+    border-top: var(--rule);
+}
+.aurora-root .hair {
+    border-top: var(--hair);
+}
+
+.aurora-root .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    white-space: nowrap;
+}
+.aurora-root .eyebrow > * {
+    white-space: nowrap;
+}
+.aurora-root .eyebrow .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--signal);
+    transform: translateY(-1px);
+}
+.aurora-root .eyebrow .idx {
+    color: var(--muted);
+}
+
+.aurora-root .h-display {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(48px, 8vw, 132px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+}
+.aurora-root .h-section {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(40px, 5.5vw, 80px);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+}
+.aurora-root .h-card {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+}
+.aurora-root .lead {
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 60ch;
+}
+.aurora-root .body {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--muted);
+}
+.aurora-root .mono {
+    font-family: var(--mono);
+}
+
+.aurora-root .signal-mark {
+    background: var(--signal);
+    padding: 0 0.18em;
+    margin: 0 -0.05em;
+    color: var(--ink);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+.aurora-root .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    transition:
+        transform 0.12s ease,
+        background 0.12s ease,
+        color 0.12s ease;
+    position: relative;
+}
+.aurora-root .btn:hover {
+    background: var(--signal);
+    color: var(--ink);
+    border-color: var(--ink);
+}
+.aurora-root .btn .arrow {
+    display: inline-block;
+    transition: transform 0.15s ease;
+}
+.aurora-root .btn:hover .arrow {
+    transform: translateX(4px);
+}
+.aurora-root .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+}
+.aurora-root .btn-ghost:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+.aurora-root .btn-signal {
+    background: var(--signal);
+    color: var(--ink);
+    border-color: var(--ink);
+}
+.aurora-root .btn-signal:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.aurora-root .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(251, 251, 249, 0.86);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: var(--hair);
+    padding: 12px var(--gutter);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+.aurora-root .theme-dark .nav {
+    background: rgba(10, 10, 10, 0.82);
+}
+.aurora-root .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 600;
+}
+.aurora-root .nav-brand .v {
+    color: var(--muted);
+    font-weight: 400;
+}
+.aurora-root .nav-brand .brand-mark {
+    width: 20px;
+    height: 20px;
+    background: var(--ink);
+    position: relative;
+}
+.aurora-root .nav-brand .brand-mark::after {
+    content: '';
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    width: 6px;
+    height: 6px;
+    background: var(--signal);
+}
+.aurora-root .nav-links {
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+.aurora-root .nav-links a {
+    position: relative;
+    padding: 6px 0;
+}
+.aurora-root .nav-links a:hover {
+    color: var(--ink);
+}
+.aurora-root .nav-links a:hover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: var(--signal);
+}
+.aurora-root .nav-end {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+.aurora-root .nav-end .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border: 1px solid var(--hairline);
+}
+.aurora-root .nav-end .status .pulse {
+    width: 6px;
+    height: 6px;
+    background: var(--signal);
+    box-shadow: 0 0 0 0 rgba(219, 255, 76, 0.6);
+    animation: pulse 1.8s infinite;
+    border-radius: 50%;
+}
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(219, 255, 76, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(219, 255, 76, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(219, 255, 76, 0);
+    }
+}
+.aurora-root .nav-end .login {
+    padding: 6px 10px;
+}
+.aurora-root .nav-end .cta {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 9px 13px;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+.aurora-root .nav-end .cta:hover {
+    background: var(--signal);
+    color: var(--ink);
+}
+@media (max-width: 1100px) {
+    .aurora-root .nav-links {
+        gap: 16px;
+        font-size: 10.5px;
+    }
+    .aurora-root .nav-end .status {
+        display: none;
+    }
+}
+.aurora-root .ticker {
+    border-bottom: var(--hair);
+    background: var(--paper);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    overflow: hidden;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    color: var(--muted);
+}
+.aurora-root .ticker-track {
+    display: flex;
+    gap: 60px;
+    white-space: nowrap;
+    animation: tick 38s linear infinite;
+    padding-left: 100%;
+}
+.aurora-root .ticker-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.aurora-root .ticker-track .pip {
+    width: 5px;
+    height: 5px;
+    background: var(--signal);
+    display: inline-block;
+}
+@keyframes tick {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.aurora-root .hero {
+    padding: 56px 0 96px;
+    position: relative;
+}
+.aurora-root .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+}
+.aurora-root .hero-lead .eyebrow {
+    margin-bottom: 32px;
+}
+.aurora-root .hero h1 {
+    margin-bottom: 32px;
+}
+.aurora-root .hero h1 .it {
+    font-style: italic;
+    font-weight: 400;
+}
+.aurora-root .hero-sub {
+    font-size: 17px;
+    line-height: 1.5;
+    max-width: 44ch;
+    color: var(--muted);
+}
+.aurora-root .hero-meta {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: var(--rule);
+    border-bottom: var(--hair);
+}
+.aurora-root .hero-meta div {
+    padding: 14px 0;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.aurora-root .hero-meta div strong {
+    display: block;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    margin-top: 6px;
+    color: var(--ink);
+    text-transform: none;
+}
+@media (max-width: 1180px) {
+    .aurora-root .h-display {
+        font-size: clamp(40px, 7.5vw, 96px);
+    }
+    .aurora-root .hero-meta div strong {
+        font-size: 18px;
+    }
+}
+
+.aurora-root .demo {
+    position: relative;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    min-height: 480px;
+    box-shadow: 10px 10px 0 var(--ink);
+}
+.aurora-root .theme-dark .demo {
+    box-shadow: 10px 10px 0 var(--signal);
+}
+.aurora-root .demo-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 14px;
+    border-bottom: var(--hair);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    gap: 12px;
+}
+.aurora-root .demo-head .left {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+}
+.aurora-root .demo-head .right {
+    flex-shrink: 0;
+}
+.aurora-root .demo-head .dots {
+    display: flex;
+    gap: 4px;
+}
+.aurora-root .demo-head .dots span {
+    width: 7px;
+    height: 7px;
+    background: var(--ink);
+    display: inline-block;
+}
+.aurora-root .demo-head .dots span:nth-child(2) {
+    background: var(--signal);
+}
+.aurora-root .demo-head .dots span:nth-child(3) {
+    background: transparent;
+    border: 1px solid var(--ink);
+}
+.aurora-root .demo-head .live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.aurora-root .demo-head .live .pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #1b8a4d;
+    box-shadow: 0 0 0 0 rgba(27, 138, 77, 0.6);
+    animation: pulse 1.8s infinite;
+}
+
+.aurora-root .demo-body {
+    padding: 22px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+    font-size: 14.5px;
+    line-height: 1.5;
+    max-height: 320px;
+    min-height: 220px;
+}
+.aurora-root .msg {
+    display: flex;
+    gap: 10px;
+    max-width: 92%;
+}
+.aurora-root .msg .who {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+.aurora-root .msg .bubble {
+    padding: 10px 12px;
+    border: 1px solid var(--hairline);
+    background: var(--paper-2);
+}
+.aurora-root .msg.you {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+.aurora-root .msg.you .bubble {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+}
+.aurora-root .msg.bot .bubble {
+    background: var(--paper-2);
+}
+.aurora-root .msg.bot .bubble .cite {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    margin-top: 8px;
+    padding: 4px 8px;
+    border: 1px solid var(--hairline);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--paper);
+}
+.aurora-root .msg.bot .bubble .cite::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--signal);
+}
+
+.aurora-root .msg-content {
+    display: flex;
+    flex-direction: column;
+}
+.aurora-root .msg.you .msg-content {
+    align-items: flex-end;
+}
+
+.aurora-root .demo-input {
+    border-top: var(--hair);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: stretch;
+}
+.aurora-root .demo-input input {
+    padding: 16px 14px;
+    font-size: 14px;
+    width: 100%;
+}
+.aurora-root .demo-input button {
+    padding: 0 22px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.aurora-root .demo-input button:hover {
+    background: var(--signal);
+    color: var(--ink);
+}
+.aurora-root .demo-input button:disabled {
+    opacity: 0.45;
+    cursor: wait;
+}
+
+.aurora-root .demo-suggest {
+    display: flex;
+    gap: 8px;
+    padding: 12px 14px;
+    border-top: var(--hair);
+    flex-wrap: wrap;
+}
+.aurora-root .demo-suggest button {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border: 1px solid var(--hairline);
+    background: var(--paper);
+}
+.aurora-root .demo-suggest button:hover {
+    background: var(--signal);
+    border-color: var(--ink);
+}
+
+.aurora-root .typing {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    height: 16px;
+}
+.aurora-root .typing span {
+    width: 6px;
+    height: 6px;
+    background: var(--ink);
+    border-radius: 50%;
+    animation: blink 1.2s infinite;
+}
+.aurora-root .typing span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+.aurora-root .typing span:nth-child(3) {
+    animation-delay: 0.3s;
+}
+@keyframes blink {
+    0%,
+    80%,
+    100% {
+        opacity: 0.2;
+    }
+    40% {
+        opacity: 1;
+    }
+}
+
+.aurora-root .demo-tag {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: var(--signal);
+    color: var(--ink);
+    padding: 4px 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--ink);
+    z-index: 3;
+    white-space: nowrap;
+}
+
+.aurora-root .hero-cursor {
+    position: absolute;
+    pointer-events: none;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.aurora-root .hero-cursor .pointer {
+    width: 14px;
+    height: 14px;
+    background: var(--signal);
+    border: 1px solid var(--ink);
+    transform: rotate(-45deg);
+}
+.aurora-root .hero-cursor .label {
+    margin-top: 6px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2px 6px;
+    display: inline-block;
+}
+
+.aurora-root .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+}
+.aurora-root .stat {
+    padding: 36px 28px 32px;
+    border-left: var(--hair);
+    position: relative;
+}
+.aurora-root .stat:first-child {
+    border-left: 0;
+}
+.aurora-root .stat .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+}
+.aurora-root .stat .num {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+}
+.aurora-root .stat .num .unit {
+    font-size: 0.4em;
+    vertical-align: super;
+    margin-left: 4px;
+    color: var(--muted);
+}
+.aurora-root .stat .desc {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 28ch;
+}
+.aurora-root .stat .corner {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 6px;
+    height: 6px;
+    background: var(--signal);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.aurora-root .stat:hover .corner {
+    opacity: 1;
+}
+
+.aurora-root .split {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 60px;
+    align-items: start;
+}
+.aurora-root .split-text .eyebrow {
+    margin-bottom: 28px;
+}
+.aurora-root .split-text h2 {
+    margin-bottom: 28px;
+}
+.aurora-root .split-text .lead {
+    color: var(--muted);
+    margin-bottom: 28px;
+}
+.aurora-root .bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+.aurora-root .bullets li {
+    padding: 16px 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    border-top: var(--hair);
+    font-size: 15px;
+}
+.aurora-root .bullets li:last-child {
+    border-bottom: var(--hair);
+}
+.aurora-root .bullets .pip {
+    width: 10px;
+    height: 10px;
+    background: var(--ink);
+    margin-top: 8px;
+}
+.aurora-root .bullets li:hover .pip {
+    background: var(--signal);
+}
+
+.aurora-root .video-frame {
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    box-shadow: 12px 12px 0 var(--paper-2);
+}
+.aurora-root .video-frame .chrome {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--ink);
+    background: #111;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ccc;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.aurora-root .video-frame .chrome .dots {
+    display: flex;
+    gap: 4px;
+}
+.aurora-root .video-frame .chrome .dots span {
+    width: 8px;
+    height: 8px;
+    background: #333;
+}
+.aurora-root .video-frame .canvas {
+    position: absolute;
+    inset: 36px 0 0;
+    background:
+        radial-gradient(
+            circle at 30% 40%,
+            rgba(219, 255, 76, 0.18),
+            transparent 50%
+        ),
+        radial-gradient(
+            circle at 70% 60%,
+            rgba(255, 255, 255, 0.06),
+            transparent 60%
+        ),
+        repeating-linear-gradient(0deg, #0a0a0a 0 31px, #141414 31px 32px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.aurora-root .video-play {
+    width: 84px;
+    height: 84px;
+    background: var(--signal);
+    border: 1px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.15s ease;
+    color: var(--ink);
+}
+.aurora-root .video-play:hover {
+    transform: scale(1.06);
+}
+.aurora-root .video-play svg {
+    display: block;
+}
+.aurora-root .video-frame .runtime {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--signal);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 4px 8px;
+    text-transform: uppercase;
+}
+.aurora-root .video-frame .runtime + .runtime {
+    left: auto;
+    right: 14px;
+    color: #999;
+}
+
+.aurora-root .pages-head,
+.aurora-root .feat-head,
+.aurora-root .steps-head,
+.aurora-root .faq-head {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr;
+    gap: 48px;
+    align-items: end;
+    margin-bottom: 56px;
+}
+.aurora-root .pages-head .eyebrow,
+.aurora-root .feat-head .eyebrow,
+.aurora-root .steps-head .eyebrow,
+.aurora-root .faq-head .eyebrow {
+    margin-bottom: 20px;
+}
+.aurora-root .feat-head .lead {
+    color: rgba(251, 251, 249, 0.65);
+}
+
+.aurora-root .pages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: var(--rule);
+    border-bottom: var(--rule);
+}
+.aurora-root .page-card {
+    padding: 36px 28px 40px;
+    border-left: var(--hair);
+    position: relative;
+    transition: background 0.15s ease;
+}
+.aurora-root .page-card:first-child {
+    border-left: 0;
+}
+.aurora-root .page-card:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+.aurora-root .page-card:hover .page-num {
+    color: var(--signal);
+}
+.aurora-root .page-card:hover .page-arrow {
+    background: var(--signal);
+    color: var(--ink);
+}
+.aurora-root .page-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 36px;
+}
+.aurora-root .page-card h3 {
+    margin-bottom: 14px;
+    font-size: 26px;
+}
+.aurora-root .page-card p {
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--muted);
+}
+.aurora-root .page-card:hover p {
+    color: rgba(251, 251, 249, 0.75);
+}
+.aurora-root .page-arrow {
+    margin-top: 28px;
+    width: 36px;
+    height: 36px;
+    border: 1px solid currentColor;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+.aurora-root .page-illust {
+    margin-top: 22px;
+    height: 110px;
+    border: 1px solid var(--hairline);
+    position: relative;
+    overflow: hidden;
+    background: var(--paper-2);
+}
+.aurora-root .page-card:hover .page-illust {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+.aurora-root .dark-section {
+    background: var(--ink);
+    color: var(--paper);
+    padding: var(--section-pad) 0;
+    position: relative;
+    overflow: hidden;
+}
+.aurora-root .theme-dark .dark-section {
+    background: #050505;
+}
+.aurora-root .dark-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    pointer-events: none;
+}
+.aurora-root .dark-section .wrap {
+    position: relative;
+    z-index: 1;
+}
+
+.aurora-root .dark-section .eyebrow {
+    color: var(--paper);
+}
+.aurora-root .dark-section .eyebrow .idx {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.aurora-root .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.aurora-root .feat {
+    background: var(--ink);
+    padding: 36px 28px 40px;
+    position: relative;
+    transition: background 0.15s ease;
+    cursor: default;
+}
+.aurora-root .feat:hover {
+    background: #141414;
+}
+.aurora-root .feat:hover .feat-icon {
+    background: var(--signal);
+    color: var(--ink);
+}
+.aurora-root .feat-icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.15s ease;
+}
+.aurora-root .feat h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+    letter-spacing: -0.015em;
+}
+.aurora-root .feat p {
+    font-size: 14px;
+    color: rgba(251, 251, 249, 0.62);
+    line-height: 1.55;
+}
+.aurora-root .feat .meta {
+    margin-top: 24px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    display: flex;
+    justify-content: space-between;
+}
+.aurora-root .feat .meta .live {
+    color: var(--signal);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.aurora-root .feat .meta .live::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    background: var(--signal);
+    border-radius: 50%;
+}
+
+.aurora-root .tune {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 60px;
+    align-items: start;
+}
+.aurora-root .tune-text h2 {
+    margin-bottom: 24px;
+}
+.aurora-root .tune-text .lead {
+    color: var(--muted);
+    margin-bottom: 32px;
+}
+.aurora-root .cred {
+    border-top: var(--hair);
+    padding: 18px 0;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    align-items: start;
+}
+.aurora-root .cred:last-child {
+    border-bottom: var(--hair);
+}
+.aurora-root .cred .lock {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-weight: 600;
+}
+.aurora-root .cred strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+.aurora-root .cred span {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.aurora-root .settings {
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    padding: 0;
+    box-shadow: 8px 8px 0 var(--paper-2);
+}
+.aurora-root .theme-dark .settings {
+    box-shadow: 8px 8px 0 var(--ink-2);
+}
+.aurora-root .settings-head {
+    padding: 14px 20px;
+    border-bottom: var(--hair);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.aurora-root .settings-head .right {
+    color: var(--muted);
+}
+.aurora-root .field {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+    padding: 22px 20px;
+    border-top: var(--hair);
+    align-items: start;
+}
+.aurora-root .field:first-of-type {
+    border-top: 0;
+}
+.aurora-root .field .label {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 14px;
+}
+.aurora-root .field .label .sub {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+    font-weight: 400;
+}
+.aurora-root .field .control {
+    border: 1px solid var(--ink);
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    background: var(--paper);
+}
+.aurora-root .field .control .caret {
+    font-family: var(--mono);
+    color: var(--muted);
+}
+.aurora-root .field .control.focus {
+    outline: 2px solid var(--signal);
+    outline-offset: -3px;
+}
+.aurora-root .settings-foot {
+    border-top: var(--hair);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.aurora-root .settings-foot .save {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.aurora-root .settings-foot .cancel {
+    padding: 10px 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.aurora-root .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: var(--rule);
+    position: relative;
+}
+.aurora-root .step {
+    padding: 36px 28px 40px;
+    border-left: var(--hair);
+    position: relative;
+}
+.aurora-root .step:first-child {
+    border-left: 0;
+}
+.aurora-root .step .num {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 36px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+}
+.aurora-root .step .num small {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+.aurora-root .step h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+.aurora-root .step p {
+    color: var(--muted);
+    font-size: 14.5px;
+}
+.aurora-root .step .pip-track {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--ink);
+    width: 0;
+    transition: width 1s ease;
+}
+.aurora-root .step.active .pip-track {
+    width: 100%;
+}
+
+.aurora-root .insights {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 36px;
+    align-items: stretch;
+}
+.aurora-root .chart-card {
+    border: 1px solid var(--ink);
+    padding: 32px;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+}
+.aurora-root .chart-head h3 {
+    font-size: 26px;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+.aurora-root .chart-head p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+    max-width: 50ch;
+}
+.aurora-root .chart-num {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.aurora-root .chart-num .big {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 56px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+.aurora-root .chart-num .delta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #1b8a4d;
+    text-transform: uppercase;
+    background: var(--signal);
+    padding: 4px 8px;
+    color: var(--ink);
+}
+.aurora-root .chart-cap {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.aurora-root .chart-svg {
+    flex: 1;
+    min-height: 220px;
+}
+.aurora-root .chart-x {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.aurora-root .insight-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.aurora-root .insight-row {
+    border: 1px solid var(--ink);
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: 32px 1fr 24px;
+    gap: 18px;
+    align-items: center;
+    background: var(--paper);
+    transition:
+        background 0.15s,
+        color 0.15s;
+}
+.aurora-root .insight-row:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+.aurora-root .insight-row:hover .insight-icon {
+    background: var(--signal);
+    color: var(--ink);
+    border-color: var(--signal);
+}
+.aurora-root .insight-row:hover .row-arrow {
+    color: var(--signal);
+}
+.aurora-root .insight-icon {
+    width: 32px;
+    height: 32px;
+    border: 1px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 12px;
+}
+.aurora-root .insight-row h4 {
+    font-size: 17px;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+}
+.aurora-root .insight-row p {
+    font-size: 13px;
+    color: var(--muted);
+}
+.aurora-root .insight-row:hover p {
+    color: rgba(251, 251, 249, 0.7);
+}
+.aurora-root .row-arrow {
+    font-family: var(--mono);
+    font-size: 18px;
+}
+
+.aurora-root .testimonial {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 60px;
+    align-items: start;
+}
+.aurora-root .t-side h2 {
+    margin-bottom: 24px;
+}
+.aurora-root .t-side p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 32ch;
+}
+.aurora-root .quote-card {
+    border: 1px solid var(--ink);
+    padding: 40px;
+    background: var(--paper);
+    position: relative;
+    box-shadow: 10px 10px 0 var(--signal);
+}
+.aurora-root .theme-dark .quote-card {
+    box-shadow: 10px 10px 0 var(--signal);
+}
+.aurora-root .quote-card .open {
+    font-family: var(--display);
+    font-size: 80px;
+    line-height: 1;
+    position: absolute;
+    top: 14px;
+    left: 24px;
+    color: var(--signal);
+}
+.aurora-root .quote-card .body {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 32px;
+    margin-top: 28px;
+    text-wrap: balance;
+}
+.aurora-root .quote-card .body em {
+    font-style: italic;
+}
+.aurora-root .quote-card .by {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 20px;
+    border-top: var(--hair);
+}
+.aurora-root .quote-card .avatar {
+    width: 44px;
+    height: 44px;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+}
+.aurora-root .quote-card .by strong {
+    font-size: 14px;
+}
+.aurora-root .quote-card .by span {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.aurora-root .quote-pager {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    justify-content: flex-end;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    align-items: center;
+}
+.aurora-root .quote-pager button {
+    border: 1px solid var(--ink);
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.aurora-root .quote-pager button:hover {
+    background: var(--signal);
+}
+
+.aurora-root .faq {
+    border-top: 2px solid var(--ink);
+}
+.aurora-root .faq-row {
+    border-bottom: var(--hair);
+}
+.aurora-root .faq-q {
+    display: grid;
+    grid-template-columns: 60px 1fr 28px;
+    align-items: center;
+    padding: 24px 4px;
+    width: 100%;
+    text-align: left;
+    font-family: var(--display);
+    font-size: 19px;
+    letter-spacing: -0.015em;
+}
+.aurora-root .faq-q:hover {
+    background: var(--paper-2);
+}
+.aurora-root .faq-q .qnum {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+}
+.aurora-root .faq-q .toggle {
+    width: 26px;
+    height: 26px;
+    border: 1px solid var(--ink);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.aurora-root .faq-q .toggle .h {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    right: 5px;
+    height: 2px;
+    background: var(--ink);
+    transform: translateY(-1px);
+}
+.aurora-root .faq-q .toggle .v {
+    position: absolute;
+    left: 50%;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: var(--ink);
+    transform: translateX(-1px);
+    transition: transform 0.2s;
+}
+.aurora-root .faq-row.open .faq-q .toggle .v {
+    transform: translateX(-1px) scaleY(0);
+}
+.aurora-root .faq-row.open .faq-q .toggle {
+    background: var(--signal);
+}
+.aurora-root .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+}
+.aurora-root .faq-row.open .faq-a {
+    max-height: 400px;
+}
+.aurora-root .faq-a-inner {
+    padding: 0 4px 28px 64px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 72ch;
+}
+
+.aurora-root .cta {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+.aurora-root .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+        circle at 80% 30%,
+        rgba(219, 255, 76, 0.18),
+        transparent 50%
+    );
+}
+.aurora-root .cta-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+.aurora-root .cta h2 {
+    font-size: clamp(40px, 6vw, 92px);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin-bottom: 24px;
+}
+.aurora-root .cta p {
+    color: rgba(251, 251, 249, 0.65);
+    max-width: 50ch;
+    font-size: 17px;
+}
+.aurora-root .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.aurora-root .cta-actions .btn-big {
+    padding: 22px 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--paper);
+    background: var(--ink);
+    color: var(--paper);
+    width: 100%;
+}
+.aurora-root .cta-actions .btn-big.primary {
+    background: var(--signal);
+    color: var(--ink);
+    border-color: var(--signal);
+}
+.aurora-root .cta-actions .btn-big:hover {
+    background: var(--paper);
+    color: var(--ink);
+}
+.aurora-root .cta-actions .btn-big.primary:hover {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+}
+
+.aurora-root .footer {
+    padding: 80px 0 40px;
+    border-top: var(--hair);
+}
+.aurora-root .foot-grid {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
+}
+.aurora-root .foot-brand .brand-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--ink);
+    position: relative;
+    margin-bottom: 20px;
+}
+.aurora-root .foot-brand .brand-mark::after {
+    content: '';
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    width: 8px;
+    height: 8px;
+    background: var(--signal);
+}
+.aurora-root .foot-brand p {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 26ch;
+    margin-bottom: 18px;
+}
+.aurora-root .foot-brand .social {
+    display: flex;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+}
+.aurora-root .foot-brand .social a {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.aurora-root .foot-brand .social a:hover {
+    background: var(--signal);
+}
+.aurora-root .foot-col h5 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+    font-weight: 500;
+}
+.aurora-root .foot-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.aurora-root .foot-col li a {
+    font-size: 14px;
+}
+.aurora-root .foot-col li a:hover {
+    background: var(--signal);
+}
+.aurora-root .foot-bar {
+    padding-top: 28px;
+    border-top: var(--hair);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+.aurora-root .foot-bar .big-mark {
+    position: absolute;
+    left: 0;
+    right: 0;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(120px, 22vw, 320px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    margin-top: 60px;
+    text-align: center;
+    color: var(--ink);
+    opacity: 0.06;
+}
+.aurora-root .foot-mark-wrap {
+    position: relative;
+    overflow: hidden;
+    border-top: var(--hair);
+    padding: 60px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.aurora-root .foot-mark-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: calc(var(--maxw) + 200px);
+}
+.aurora-root .foot-mark-wrap svg text {
+    font-family: var(--display);
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    fill: var(--ink);
+}
+
+.aurora-root .js .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+        opacity 0.55s ease,
+        transform 0.55s ease;
+}
+.aurora-root .js .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 860px) {
+    .aurora-root .hero-grid,
+    .aurora-root .split,
+    .aurora-root .pages-head,
+    .aurora-root .feat-head,
+    .aurora-root .tune,
+    .aurora-root .steps-head,
+    .aurora-root .insights,
+    .aurora-root .testimonial,
+    .aurora-root .faq-head,
+    .aurora-root .cta-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+    .aurora-root .stats,
+    .aurora-root .features,
+    .aurora-root .pages-grid,
+    .aurora-root .steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .aurora-root .stat:nth-child(3),
+    .aurora-root .step:nth-child(3),
+    .aurora-root .page-card:nth-child(3) {
+        grid-column: span 2;
+        border-top: var(--hair);
+        border-left: 0;
+    }
+    .aurora-root .foot-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .aurora-root .feat-head,
+    .aurora-root .pages-head,
+    .aurora-root .steps-head {
+        align-items: start;
+    }
+}
+/* Grid-item min-width reset. Default `min-width: auto` lets grid
+   children expand past their track width to fit intrinsic content
+   (long words, demo inputs, long URLs), which manifests as horizontal
+   overflow on narrow viewports. Forcing min-width: 0 lets the track
+   constrain the child and the content wraps inside. Applies to every
+   layout grid the theme uses. */
+.aurora-root .hero-grid > *,
+.aurora-root .split > *,
+.aurora-root .tune > *,
+.aurora-root .testimonial > *,
+.aurora-root .cta-grid > *,
+.aurora-root .feat-head > *,
+.aurora-root .pages-head > *,
+.aurora-root .faq-head > *,
+.aurora-root .steps-head > *,
+.aurora-root .insights > *,
+.aurora-root .features > *,
+.aurora-root .pages-grid > *,
+.aurora-root .stats > *,
+.aurora-root .steps > * {
+    min-width: 0;
+}
+
+/* Word-break for hero / section display headings so long compound
+   words ("high-intent") wrap on narrow viewports instead of clipping
+   past the viewport edge. */
+.aurora-root .h-display,
+.aurora-root .h-section,
+.aurora-root .h-card,
+.aurora-root .cta h2 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+/* Changelog body inline code can be long URLs / version strings that
+   blow past the viewport. Force break + horizontal scroll on <pre>
+   blocks so the article can't push the page wider than 100vw. */
+.aurora-root .aurora-markdown code,
+.aurora-root code {
+    overflow-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+}
+.aurora-root .aurora-markdown pre,
+.aurora-root pre {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    overflow-x: auto;
+}
+.aurora-root a {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Inputs inside fixed-position containers (demo bar, settings card)
+   shouldn't force their parent to grow when the placeholder is long.
+   Without this, a long URL placeholder pushes the demo card past the
+   viewport on small phones. */
+.aurora-root input,
+.aurora-root textarea,
+.aurora-root select {
+    min-width: 0;
+}
+
+@media (max-width: 640px) {
+    .aurora-root {
+        --section-pad: 56px;
+        --gutter: 18px;
+    }
+    .aurora-root .nav-links {
+        display: none;
+    }
+    .aurora-root .nav {
+        grid-template-columns: 1fr auto;
+        padding: 10px var(--gutter);
+    }
+    .aurora-root .nav-brand .v {
+        display: none;
+    }
+    .aurora-root .nav-end {
+        gap: 6px;
+    }
+    .aurora-root .nav-end .status,
+    .aurora-root .nav-end .login {
+        display: none;
+    }
+    /* Touch target: ≥40px tap height per WCAG 2.5.5. */
+    .aurora-root .nav-end .cta {
+        padding: 11px 14px;
+        font-size: 11px;
+        min-height: 40px;
+        align-items: center;
+    }
+    .aurora-root .ticker {
+        height: 28px;
+        font-size: 10px;
+        letter-spacing: 0.06em;
+    }
+
+    .aurora-root .hero {
+        padding: 32px 0 56px;
+    }
+    .aurora-root .hero-grid {
+        gap: 28px;
+    }
+    .aurora-root .h-display {
+        font-size: clamp(36px, 9vw, 56px);
+        line-height: 0.98;
+    }
+    .aurora-root .h-section {
+        font-size: clamp(28px, 6vw, 40px);
+    }
+    .aurora-root .hero-sub {
+        font-size: 15px;
+    }
+    .aurora-root .lead {
+        font-size: 16px;
+    }
+    .aurora-root .hero-meta {
+        grid-template-columns: 1fr;
+        border-top: 0;
+    }
+    .aurora-root .hero-meta div {
+        padding: 12px 0;
+        border-top: var(--hair);
+    }
+    .aurora-root .hero-meta div:first-child {
+        border-top: var(--rule);
+    }
+    .aurora-root .hero-meta div strong {
+        font-size: 20px;
+    }
+
+    .aurora-root .demo {
+        min-height: auto;
+        box-shadow: 6px 6px 0 var(--ink);
+    }
+    .aurora-root .demo-body {
+        max-height: 280px;
+        min-height: 180px;
+        padding: 16px 14px;
+        gap: 12px;
+    }
+    .aurora-root .demo-tag {
+        left: 14px;
+        font-size: 9.5px;
+        padding: 3px 8px;
+    }
+    .aurora-root .demo-suggest {
+        padding: 10px 12px;
+        gap: 6px;
+    }
+    .aurora-root .demo-suggest button {
+        font-size: 10.5px;
+        padding: 9px 10px;
+        min-height: 36px;
+    }
+    .aurora-root .demo-input input {
+        padding: 14px 12px;
+        font-size: 16px;
+    }
+    .aurora-root .demo-input button {
+        padding: 0 18px;
+        font-size: 11px;
+        min-height: 48px;
+    }
+
+    .aurora-root .stats,
+    .aurora-root .features,
+    .aurora-root .pages-grid,
+    .aurora-root .steps {
+        grid-template-columns: 1fr;
+    }
+    /* Reset the nth-child(3) span-2 carried over from the ≤860px rule.
+     Without this, the grid silently maintains 2 columns at ≤640px to
+     satisfy the span, ignoring the single-track template. */
+    .aurora-root .stat:nth-child(3),
+    .aurora-root .step:nth-child(3),
+    .aurora-root .page-card:nth-child(3) {
+        grid-column: auto;
+    }
+    .aurora-root .stat,
+    .aurora-root .step,
+    .aurora-root .page-card {
+        border-left: 0;
+        border-top: var(--hair);
+        padding: 28px 20px;
+    }
+    .aurora-root .stat:first-child,
+    .aurora-root .step:first-child,
+    .aurora-root .page-card:first-child {
+        border-top: 0;
+    }
+    .aurora-root .stat .num {
+        font-size: clamp(40px, 12vw, 64px);
+    }
+    .aurora-root .stat .label {
+        margin-bottom: 12px;
+        font-size: 10px;
+    }
+
+    .aurora-root .field {
+        grid-template-columns: 1fr;
+        padding: 14px 18px;
+        gap: 8px;
+    }
+    .aurora-root .settings-head {
+        padding: 12px 18px;
+        font-size: 10px;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .aurora-root .settings-foot {
+        padding: 14px 18px;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .aurora-root .settings-foot button {
+        font-size: 11px;
+        padding: 8px 14px;
+    }
+
+    .aurora-root .features {
+        gap: 0;
+        border-top: 2px solid var(--paper);
+    }
+    .aurora-root .feat {
+        padding: 26px 22px;
+    }
+    .aurora-root .feat h3 {
+        font-size: 18px;
+    }
+    .aurora-root .feat-icon {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+
+    .aurora-root .pages-grid {
+        gap: 0;
+        border-top: 2px solid var(--ink);
+    }
+    .aurora-root .page-num,
+    .aurora-root .page-card .page-num {
+        font-size: 10px;
+    }
+    .aurora-root .page-illust {
+        min-height: 110px;
+    }
+
+    .aurora-root .steps {
+        gap: 0;
+    }
+    .aurora-root .step .num {
+        font-size: clamp(34px, 10vw, 50px);
+    }
+
+    .aurora-root .insights {
+        gap: 28px;
+    }
+    .aurora-root .chart-card {
+        padding: 22px 18px;
+    }
+    .aurora-root .chart-num .big {
+        font-size: clamp(36px, 11vw, 52px);
+    }
+    .aurora-root .chart-x {
+        font-size: 10px;
+        padding: 10px 14px;
+    }
+    .aurora-root .insight-row {
+        padding: 16px 18px;
+        gap: 12px;
+    }
+    .aurora-root .insight-row h4 {
+        font-size: 15px;
+    }
+
+    .aurora-root .testimonial {
+        gap: 24px;
+    }
+    .aurora-root .quote-card {
+        padding: 26px 22px;
+    }
+    .aurora-root .quote-card .body {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    .aurora-root .quote-card .open {
+        font-size: 64px;
+    }
+    .aurora-root .quote-pager {
+        padding: 12px 18px;
+        font-size: 10px;
+        gap: 10px;
+    }
+    .aurora-root .quote-pager button {
+        min-width: 44px;
+        min-height: 44px;
+        font-size: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .aurora-root .faq-q {
+        padding: 18px 16px;
+        font-size: 14px;
+        gap: 10px;
+        min-height: 56px;
+    }
+    .aurora-root .faq-q .qnum {
+        font-size: 10px;
+    }
+    .aurora-root .faq-a-inner {
+        padding: 0 18px 18px;
+        font-size: 14px;
+    }
+
+    .aurora-root .cta {
+        padding: 64px 0 72px;
+    }
+    .aurora-root .cta h2 {
+        font-size: clamp(34px, 9vw, 56px);
+        line-height: 0.98;
+    }
+    .aurora-root .cta p {
+        font-size: 15px;
+    }
+    .aurora-root .btn-big {
+        padding: 18px 20px;
+        font-size: 11px;
+        min-height: 56px;
+        justify-content: space-between;
+    }
+    .aurora-root .btn {
+        padding: 14px 18px;
+        min-height: 48px;
+    }
+    .aurora-root .cta-actions {
+        gap: 12px;
+    }
+
+    .aurora-root .foot-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+    .aurora-root .foot-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 16px 0;
+        font-size: 10px;
+    }
+    .aurora-root .foot-mark-wrap svg text {
+        font-size: 280px;
+    }
+
+    .aurora-root .split {
+        gap: 32px;
+    }
+    .aurora-root .video-frame {
+        padding-bottom: 56%;
+    }
+    .aurora-root .bullets li {
+        padding: 12px 0;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 760px) {
+    .aurora-root .aurora-plan-card {
+        border-left: 0 !important;
+        border-top: 1px solid var(--hairline);
+        padding: 24px 20px !important;
+    }
+    .aurora-root .aurora-plan-card[data-first='true'] {
+        border-top: 0;
+    }
+}
+
+@media (max-width: 380px) {
+    .aurora-root .h-display {
+        font-size: clamp(30px, 10vw, 44px);
+    }
+    .aurora-root .cta h2 {
+        font-size: clamp(28px, 9.5vw, 44px);
+    }
+    .aurora-root .nav-end .cta {
+        padding: 9px 11px;
+        font-size: 10.5px;
+    }
+    /* On 320px-ish screens the eyebrow row ("S/01 AI SALES ASSISTANT FOR
+     HIGH-INTENT PAGES") doesn't fit nowrap. Allow soft-wrap so the badge
+     stacks instead of clipping behind overflow-x: hidden. */
+    .aurora-root .eyebrow {
+        white-space: normal;
+        flex-wrap: wrap;
+        row-gap: 4px;
+    }
+    .aurora-root .eyebrow > * {
+        white-space: normal;
+    }
+}
+
+/* ==========================================================================
+   Aurora Auth Shell
+   Mirrors the marketing palette into the sign-in / sign-up flows so the
+   brand identity carries through. Left panel = ink (#0A0A0A) background
+   with paper text and a lime signal accent. Right panel = paper form
+   surface with the same brutalist hairlines.
+   ========================================================================== */
+
+.aurora-root.aurora-auth-shell {
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) {
+    .aurora-root.aurora-auth-shell {
+        grid-template-columns: 1.05fr 0.95fr;
+    }
+}
+
+.aurora-root .aurora-auth-aside {
+    display: none;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+}
+.aurora-root .aurora-auth-aside::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(
+            120% 80% at 0% 0%,
+            rgba(219, 255, 76, 0.18),
+            transparent 55%
+        ),
+        radial-gradient(
+            120% 80% at 100% 100%,
+            rgba(255, 255, 255, 0.05),
+            transparent 60%
+        );
+    pointer-events: none;
+}
+.aurora-root .aurora-auth-aside::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+@media (min-width: 1024px) {
+    .aurora-root .aurora-auth-aside {
+        display: flex;
+    }
+}
+
+.aurora-root .aurora-auth-aside-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(36px, 5vw, 64px);
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    gap: 32px;
+}
+
+.aurora-root .aurora-auth-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--display);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-size: 14px;
+    color: inherit;
+}
+.aurora-root .aurora-auth-logo .brand-mark {
+    width: 22px;
+    height: 22px;
+    background: var(--signal);
+    display: inline-block;
+    position: relative;
+}
+.aurora-root .aurora-auth-logo .brand-mark::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: var(--ink);
+}
+.aurora-root .aurora-auth-aside .aurora-auth-logo .brand-mark::after {
+    background: var(--ink);
+}
+
+.aurora-root .aurora-auth-aside .eyebrow {
+    color: rgba(251, 251, 249, 0.78);
+}
+.aurora-root .aurora-auth-aside .eyebrow .dot {
+    background: var(--signal);
+}
+.aurora-root .aurora-auth-aside .eyebrow .idx {
+    color: rgba(251, 251, 249, 0.5);
+}
+
+.aurora-root .aurora-auth-display {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(40px, 5.2vw, 72px);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    color: var(--paper);
+    margin: 24px 0 0;
+    max-width: 14ch;
+}
+.aurora-root .aurora-auth-display .signal-mark {
+    display: inline-block;
+    background: var(--signal);
+    color: var(--ink);
+    padding: 0 0.12em;
+    margin: 0 0.04em;
+    transform: skewX(-3deg);
+    border: 1px solid var(--ink);
+    font-style: normal;
+}
+
+.aurora-root .aurora-auth-lede {
+    margin-top: 22px;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: rgba(251, 251, 249, 0.84);
+    max-width: 44ch;
+}
+
+.aurora-root .aurora-auth-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.aurora-root .aurora-auth-bullets li {
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    gap: 14px;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    color: rgba(251, 251, 249, 0.92);
+    text-transform: uppercase;
+}
+.aurora-root .aurora-auth-bullets .pip {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: var(--signal);
+}
+
+.aurora-root .aurora-auth-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(251, 251, 249, 0.12);
+}
+.aurora-root .aurora-auth-foot-meta {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    color: rgba(251, 251, 249, 0.55);
+    text-transform: uppercase;
+}
+.aurora-root .aurora-auth-back {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(251, 251, 249, 0.88);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s;
+}
+.aurora-root .aurora-auth-back:hover {
+    color: var(--signal);
+}
+
+.aurora-root .aurora-auth-main {
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+}
+.aurora-root .aurora-auth-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--hairline);
+}
+@media (min-width: 1024px) {
+    .aurora-root .aurora-auth-mobile-bar {
+        display: none;
+    }
+}
+.aurora-root .aurora-auth-mobile-bar .aurora-auth-logo {
+    color: var(--ink);
+}
+.aurora-root .aurora-auth-mobile-bar .aurora-auth-logo .brand-mark::after {
+    background: var(--paper);
+}
+.aurora-root .aurora-auth-mobile-bar .aurora-auth-back {
+    color: var(--ink);
+}
+.aurora-root .aurora-auth-mobile-bar .aurora-auth-back:hover {
+    color: var(--ink);
+    opacity: 0.7;
+}
+
+.aurora-root .aurora-auth-form-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px 48px;
+}
+@media (min-width: 1024px) {
+    .aurora-root .aurora-auth-form-wrap {
+        padding: 48px;
+    }
+}
+
+.aurora-root .aurora-auth-form-card {
+    width: 100%;
+    max-width: 480px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    position: relative;
+}
+.aurora-root .aurora-auth-form-card::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: 6px;
+    bottom: 6px;
+    border: 1px solid var(--ink);
+    background: var(--signal);
+    z-index: -1;
+}
+
+.aurora-root .aurora-auth-form-head {
+    padding: 28px 32px 24px;
+    border-bottom: 1px solid var(--ink);
+    background: var(--paper-2);
+}
+.aurora-root .aurora-auth-form-head .eyebrow {
+    margin-bottom: 16px;
+}
+
+.aurora-root .aurora-auth-title {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin: 0;
+}
+.aurora-root .aurora-auth-desc {
+    margin-top: 12px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--muted);
+    max-width: 38ch;
+}
+.aurora-root .aurora-auth-form-body {
+    padding: 28px 32px 32px;
+}
+
+/* Override the Harvest auth utility classes when nested inside the
+   Aurora auth shell so each shipped auth page renders with the
+   paper/ink/lime palette without rewriting every form. */
+.aurora-root .aurora-auth-form-body .h-12 {
+    height: 44px;
+}
+.aurora-root .aurora-auth-form-body input[type='email'],
+.aurora-root .aurora-auth-form-body input[type='text'],
+.aurora-root .aurora-auth-form-body input[type='password'] {
+    border: 1px solid var(--ink) !important;
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+    border-radius: 0 !important;
+    height: 44px !important;
+    font-size: 14px !important;
+    font-family: var(--display) !important;
+    box-shadow: none !important;
+}
+.aurora-root .aurora-auth-form-body input[type='email']:focus,
+.aurora-root .aurora-auth-form-body input[type='text']:focus,
+.aurora-root .aurora-auth-form-body input[type='password']:focus,
+.aurora-root .aurora-auth-form-body input[type='email']:focus-visible,
+.aurora-root .aurora-auth-form-body input[type='text']:focus-visible,
+.aurora-root .aurora-auth-form-body input[type='password']:focus-visible {
+    border-color: var(--ink) !important;
+    background: var(--paper-2) !important;
+    box-shadow: 4px 4px 0 var(--signal) !important;
+    outline: none !important;
+}
+.aurora-root .aurora-auth-form-body label {
+    color: var(--ink) !important;
+    font-family: var(--mono) !important;
+    font-size: 10.5px !important;
+    letter-spacing: 0.16em !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+}
+.aurora-root .aurora-auth-form-body button[type='submit'] {
+    background: var(--ink) !important;
+    color: var(--paper) !important;
+    border: 1px solid var(--ink) !important;
+    border-radius: 0 !important;
+    height: 46px !important;
+    font-family: var(--display) !important;
+    font-weight: 600 !important;
+    font-size: 13.5px !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    box-shadow: 4px 4px 0 var(--signal) !important;
+    transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease !important;
+}
+.aurora-root .aurora-auth-form-body button[type='submit']:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--signal) !important;
+}
+.aurora-root
+    .aurora-auth-form-body
+    button[type='submit']:active:not(:disabled) {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 var(--signal) !important;
+}
+.aurora-root .aurora-auth-form-body a {
+    color: var(--ink) !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid var(--ink);
+    transition: background 0.12s;
+}
+.aurora-root .aurora-auth-form-body a:hover {
+    background: var(--signal);
+}
+
+/* Remember-me + every other Radix Checkbox inside the Aurora auth
+   shell. The default shadcn token uses `border-input` which on
+   Aurora's paper background resolves to a near-invisible light gray.
+   Force the ink border so the box is always visible — buyer report
+   2026-05-26 "remember me checkbox invisible". */
+.aurora-root .aurora-auth-form-body [data-slot='checkbox'] {
+    border: 1px solid var(--ink) !important;
+    background: var(--paper) !important;
+    border-radius: 0 !important;
+    box-shadow: 2px 2px 0 var(--signal) !important;
+    height: 18px !important;
+    width: 18px !important;
+}
+.aurora-root .aurora-auth-form-body [data-slot='checkbox']:focus-visible {
+    outline: 2px solid var(--signal) !important;
+    outline-offset: 2px !important;
+}
+.aurora-root
+    .aurora-auth-form-body
+    [data-slot='checkbox'][data-state='checked'] {
+    background: var(--ink) !important;
+    color: var(--paper) !important;
+    border-color: var(--ink) !important;
+}
+.aurora-root .aurora-auth-form-body [data-slot='checkbox-indicator'] {
+    color: var(--paper);
+}
+
+@media (max-width: 520px) {
+    .aurora-root .aurora-auth-form-card::before {
+        display: none;
+    }
+    .aurora-root .aurora-auth-form-head {
+        padding: 22px 22px 18px;
+    }
+    .aurora-root .aurora-auth-form-body {
+        padding: 22px;
+    }
+    .aurora-root .aurora-auth-title {
+        font-size: clamp(24px, 7vw, 30px);
+    }
+}

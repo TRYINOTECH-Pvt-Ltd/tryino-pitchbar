@@ -1,0 +1,13 @@
+{
+    "name": "Prism",
+    "description": "Editorial purple/coral gradient landing — Inter Tight body with Instrument Serif italic accents, glossy gradient hero mockup, sticky blur nav, gradient-bar footer. Ships all seven marketing pages with an interactive hero chat wired to the live demo agent.",
+    "pages": [
+        "home",
+        "pricing",
+        "how-it-works",
+        "integrations",
+        "privacy",
+        "terms",
+        "changelog"
+    ]
+}
