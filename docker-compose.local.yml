@@ -1,0 +1,64 @@
+# Local supporting services only (Postgres, Redis, Qdrant, Mailpit).
+# The Laravel app is NOT in this file — use `composer run dev` on the host.
+# Production VPS / Portainer stack: docker-compose.prod.yml
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: pitchbar-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pitchbar
+      POSTGRES_USER: pitchbar
+      POSTGRES_PASSWORD: pitchbar
+    ports:
+      - "${FORWARD_DB_PORT:-5432}:5432"
+    volumes:
+      - pitchbar-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pitchbar -d pitchbar"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: pitchbar-redis
+    restart: unless-stopped
+    ports:
+      - "${FORWARD_REDIS_PORT:-6379}:6379"
+    volumes:
+      - pitchbar-redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: pitchbar-qdrant
+    restart: unless-stopped
+    ports:
+      - "${FORWARD_QDRANT_PORT:-6333}:6333"
+      - "${FORWARD_QDRANT_GRPC_PORT:-6334}:6334"
+    volumes:
+      - pitchbar-qdrantdata:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6333' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: pitchbar-mailpit
+    restart: unless-stopped
+    ports:
+      - "${FORWARD_MAIL_PORT:-1025}:1025"
+      - "${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025"
+
+volumes:
+  pitchbar-pgdata:
+  pitchbar-redisdata:
+  pitchbar-qdrantdata:
