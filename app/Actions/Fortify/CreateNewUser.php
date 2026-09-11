@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Actions\Workspaces\CreateWorkspaceForUser;
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
+use App\Enums\PlatformRole;
 use App\Jobs\Crawl\CrawlSourceJob;
 use App\Models\Agent;
 use App\Models\AppSetting;
@@ -64,6 +65,14 @@ class CreateNewUser implements CreatesNewUsers
             // (blengi 2026-06-27).
             if (! $requireVerification) {
                 $user->forceFill(['email_verified_at' => now()])->save();
+            }
+
+            if (config('app.self_host')
+                && ! User::query()
+                    ->where('role', PlatformRole::SuperAdmin)
+                    ->whereKeyNot($user->id)
+                    ->exists()) {
+                $user->forceFill(['role' => PlatformRole::SuperAdmin])->save();
             }
 
             $workspace = $this->createWorkspaceForUser->handle($user);

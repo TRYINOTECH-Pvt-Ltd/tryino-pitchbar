@@ -16,12 +16,19 @@ use Symfony\Component\HttpFoundation\Response;
  * impersonate that customer (which flips the auth identity, so the
  * "is this user a super-admin?" check below evaluates to false on
  * subsequent requests).
+ *
+ * Self-host Docker installs (`PITCHBAR_SELF_HOST=true`) skip this
+ * funnel: the first operator is both admin and workspace owner.
  */
 class RedirectSuperAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
         $user = $request->user();
+        if (config('app.self_host')) {
+            return $next($request);
+        }
+
         if ($user !== null && $user->isSuperAdmin()) {
             return redirect('/admin');
         }

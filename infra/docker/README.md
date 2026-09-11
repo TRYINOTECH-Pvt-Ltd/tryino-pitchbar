@@ -1,101 +1,78 @@
-# Deploy Pitchbar on a VPS (Docker / Portainer)
+# Deploy Pitchbar on a VPS (Hostinger Docker Manager)
 
-The local `docker-compose.yml` only starts **Postgres, Redis, Qdrant, and Mailpit**. Production uses `docker-compose.prod.yml`: FrankenPHP (Octane) + Horizon + scheduler + Inertia SSR, with Postgres and Redis on an internal network.
+Production compose is `docker-compose.yml`. Local Postgres/Redis/Qdrant/Mailpit is `docker-compose.local.yml`.
 
-## 1. On the VPS
+Do **not** run `migrate` or seeders. The first person who registers becomes admin and finishes setup in **Settings → System**.
 
-Clone the repo (or upload it), then:
+## Hostinger Docker Manager (short)
+
+1. **DNS** — A record `pitch` → your VPS IPv4. Open firewall ports **80**, **443**, **22**.
+2. **Docker Manager** — hPanel → VPS → Docker Manager. Install the Docker template if asked (OS change **wipes** the VPS — snapshot first).
+3. **Clone and env** (Docker Manager browser terminal):
 
 ```sh
+mkdir -p /opt && cd /opt
+git clone <your-pitchbar-repo-url> pitchbar
+cd pitchbar
 cp .env.production.example .env
+nano .env
 ```
 
-Fill in at least:
+Fill at least:
 
-| Variable | How to generate |
+| Variable | Value |
 |---|---|
+| `APP_URL` | `https://pitch.tryinotech.com` |
+| `APP_DOMAIN` | `pitch.tryinotech.com` |
 | `APP_KEY` | `docker run --rm php:8.4-cli php -r "echo 'base64:'.base64_encode(random_bytes(32)), PHP_EOL;"` |
 | `WIDGET_JWT_SECRET` | `openssl rand -hex 32` |
-| `DB_PASSWORD` | a long random string (required — the stack will not start without it) |
-| `APP_URL` | public HTTPS origin, e.g. `https://app.yourdomain.com` |
+| `DB_PASSWORD` | a long random string (required) |
 
-Leave Cloudflare, OpenAI, mail, and Stripe **empty**. The in-app installer is **Settings → System** (Test buttons, then Save). Putting keys only in `.env` skips that UI for nothing — both paths work; the UI is the one the docs describe.
+Leave Cloudflare, mail, and Stripe empty.
 
-Leave `BROADCAST_CONNECTION=log` for the first boot (live inbox still works via polling).
-
-## 2. Build and start
+4. **Start** (same folder — so Docker can see the `Dockerfile`):
 
 ```sh
-docker compose -f docker-compose.prod.yml up -d --build
+docker compose up -d --build
+docker compose logs -f app
 ```
 
-First boot only prepares the empty app: migrations, default plan rows (if none exist), caches. It does **not** create users, provision Vectorize, or seed demo passwords.
+Wait until `/up` is healthy, then Ctrl+C. First build takes several minutes.
+
+5. Open **https://pitch.tryinotech.com/register**, create your account, finish onboarding.
+6. **Settings → System** — paste Cloudflare / mail / Stripe, click each **Test**, Save. Then:
 
 ```sh
-docker compose -f docker-compose.prod.yml logs -f app
+docker compose restart horizon
 ```
 
-When `/up` is healthy, open the site and follow the same flow as `/documentation/installation`:
+Use Docker Manager → Projects for logs, restart, and the container terminal. Do **not** use One-click deploy. Do **not** paste the compose file into a different folder — the image builds from this repo.
 
-1. Sign up at `/register` — creates your workspace.
-2. Complete **`/onboarding`** (URL → crawl → embed).
-3. Promote yourself so **Settings → System** is visible:
+## TLS
+
+Caddy in this stack listens on **80/443** and proxies to `app:80`. DNS must already point at the VPS or the certificate fails.
+
+Debug without TLS: `http://VPS_IP:8000`.
+
+## Optional profiles
 
 ```sh
-docker compose -f docker-compose.prod.yml exec app php artisan pitchbar:make-admin you@example.com
+docker compose --profile realtime up -d    # live inbox WebSockets
+docker compose --profile qdrant up -d      # self-hosted vectors
 ```
 
-4. In **Settings → System**, paste Cloudflare / mail / Stripe and click each **Test** button.
-5. Restart workers so Horizon picks up the new keys:
+For Reverb, set `BROADCAST_CONNECTION=reverb` and keep `REVERB_HOST` equal to `APP_DOMAIN`.
+
+## Updates
 
 ```sh
-docker compose -f docker-compose.prod.yml restart horizon
+cd /opt/pitchbar
+git pull
+docker compose up -d --build
 ```
 
-## 3. TLS / reverse proxy
-
-Do **not** expose Postgres or Redis. Point Nginx Proxy Manager, Caddy, or Cloudflare Tunnel at **`app:80`** on the `pitchbar` Docker network (or at host port `APP_PORT`, default 8000).
-
-Set `APP_URL=https://your-domain` so widget snippets, OAuth callbacks, and signed URLs are HTTPS.
-
-## 4. Optional profiles
-
-```sh
-# Live inbox / human takeover over WebSockets
-docker compose -f docker-compose.prod.yml --profile realtime up -d
-
-# Self-hosted vectors instead of Cloudflare Vectorize
-docker compose -f docker-compose.prod.yml --profile qdrant up -d
-```
-
-For Reverb, set `BROADCAST_CONNECTION=reverb` and proxy `wss://your-domain` (or a dedicated host) to the `reverb` service on port 8080.
-
-For Qdrant, set `VECTOR_PROVIDER=qdrant` (compose already sets `QDRANT_URL=http://qdrant:6333` in `.env.production.example`).
-
-## 5. Portainer
-
-1. Stacks → Add stack → Repository (or paste `docker-compose.prod.yml`).
-2. Set the compose path to `docker-compose.prod.yml`.
-3. Create a `.env` in the clone **or** paste the same keys into the stack Environment editor. `env_file: .env` is optional (`required: false`); Laravel still needs those values in the container — easiest is a real `.env` next to the compose file.
-4. Enable **Force pull / rebuild** after git updates so the image rebuilds.
-
-## 6. Useful commands
-
-```sh
-docker compose -f docker-compose.prod.yml ps
-docker compose -f docker-compose.prod.yml logs -f horizon
-docker compose -f docker-compose.prod.yml exec app php artisan horizon:status
-docker compose -f docker-compose.prod.yml exec app php artisan pitchbar:audit-vectors
-```
-
-After pulling new code:
-
-```sh
-docker compose -f docker-compose.prod.yml up -d --build
-```
-
-The `app` container migrates on every start (safe). It never re-seeds demo users or overwrites plan prices you edited in the admin. Horizon / scheduler wait until `app` is healthy.
+Named volumes (Postgres, Redis, storage, Caddy certs) are kept.
 
 ## Sizing
 
-A single 4 GB VPS is enough for one workspace (Tryino Homes). The `app` service binds one host port; everything else stays on the internal `pitchbar` network.
+A single 4 GB VPS is enough for one workspace. Postgres and Redis stay on the internal `pitchbar` network.

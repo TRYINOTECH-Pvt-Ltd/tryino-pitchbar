@@ -1,6 +1,6 @@
 # Local supporting services only (Postgres, Redis, Qdrant, Mailpit).
 # The Laravel app is NOT in this file — use `composer run dev` on the host.
-# Production VPS / Portainer stack: docker-compose.prod.yml
+# Production VPS / Docker Manager stack: docker-compose.yml
 
 services:
   postgres:

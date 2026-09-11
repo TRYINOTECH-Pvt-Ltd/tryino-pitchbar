@@ -8,9 +8,9 @@ React 19 for teams running their own customer-facing AI assistant.
 > documentation ships inside the application itself at `/documentation`
 > once it is running — start with the *Install Pitchbar (self-host)* page.
 >
-> **VPS / Docker:** production stack is `docker-compose.prod.yml`. Follow
-> [infra/docker/README.md](infra/docker/README.md). The root
-> `docker-compose.yml` is local Postgres/Redis/Qdrant/Mailpit only.
+> **VPS / Docker:** production stack is `docker-compose.yml` (Caddy +
+> FrankenPHP + Horizon). Follow [infra/docker/README.md](infra/docker/README.md).
+> Local Postgres/Redis/Qdrant/Mailpit only: `docker-compose.local.yml`.
 
 ```
 ┌──────────────┐    ┌──────────────────┐    ┌──────────────┐

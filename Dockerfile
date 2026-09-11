@@ -2,7 +2,7 @@
 #
 # Production image for Pitchbar on a VPS (Portainer / docker compose).
 # One image, several process roles: web | horizon | scheduler | reverb | ssr
-# See docker-compose.prod.yml and infra/docker/README.md.
+# See docker-compose.yml and infra/docker/README.md.
 
 # ---------------------------------------------------------------------------
 # 1. Composer vendor (no scripts — Laravel is not bootable yet)
@@ -126,7 +126,7 @@ ENV APP_ENV=production \
 
 EXPOSE 80 8080 13714
 
-# Per-role healthchecks live in docker-compose.prod.yml (only `web` serves /up).
+# Per-role healthchecks live in docker-compose.yml (only `web` serves /up).
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["web"]

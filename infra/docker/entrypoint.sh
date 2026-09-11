@@ -55,16 +55,10 @@ run_web_boot() {
 
     php artisan storage:link --force >/dev/null 2>&1 || php artisan storage:link || true
 
-    # Schema only. Cloudflare / mail / Stripe / vector index are configured
-    # in-app at Settings → System after the first super_admin signs up.
-    # Do not seed UserSeeder (public demo passwords) and do not run
-    # vector:setup here — IndexDocumentJob + the System page own that.
+    # Schema only so /register and Settings → System can load.
+    # Do not seed users or plans — the in-app installer owns that
+    # (first signup creates a Free plan on demand; System page owns keys).
     php artisan migrate --force --no-interaction
-
-    # Empty Free/Standard/Pro/Custom rows if this is a fresh database.
-    # PlanSeeder uses firstOrCreate so later restarts never clobber
-    # prices the operator set in /admin/plans.
-    php artisan db:seed --class=PlanSeeder --force --no-interaction || log "WARN: PlanSeeder failed (non-fatal)"
 
     php artisan optimize
 }

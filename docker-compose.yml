@@ -1,9 +1,10 @@
-# Production stack for a VPS with Docker / Portainer.
-# Local development keeps using docker-compose.yml (Postgres + Redis + Qdrant + Mailpit).
+# Production stack for a VPS (Hostinger Docker Manager / Portainer / compose).
+# Local supporting services: docker-compose.local.yml
 #
 #   cp .env.production.example .env
-#   # fill APP_KEY, APP_URL, DB_PASSWORD (AI/mail/Stripe go in Settings → System)
-#   docker compose -f docker-compose.prod.yml up -d --build
+#   # fill APP_KEY, APP_URL, APP_DOMAIN, DB_PASSWORD
+#   # AI / mail / Stripe go in Settings → System after you register
+#   docker compose up -d --build
 #
 # Optional profiles:
 #   --profile realtime   Laravel Reverb (live inbox / human takeover)
@@ -42,6 +43,7 @@ x-app: &app
     OCTANE_HTTPS: "false"
     INERTIA_SSR_ENABLED: "${INERTIA_SSR_ENABLED:-true}"
     INERTIA_SSR_URL: http://ssr:13714
+    PITCHBAR_SELF_HOST: "${PITCHBAR_SELF_HOST:-true}"
   volumes:
     - pitchbar-storage:/app/storage
   depends_on:
@@ -177,6 +179,25 @@ services:
     networks:
       - pitchbar
 
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:?Set APP_DOMAIN in .env (e.g. pitch.tryinotech.com)}
+    volumes:
+      - ./infra/docker/Caddyfile.proxy:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - pitchbar
+
 networks:
   pitchbar:
     name: pitchbar
@@ -186,3 +207,5 @@ volumes:
   pitchbar-redisdata:
   pitchbar-storage:
   pitchbar-qdrantdata:
+  caddy-data:
+  caddy-config:

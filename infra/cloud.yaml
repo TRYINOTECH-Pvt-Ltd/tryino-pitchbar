@@ -1,6 +1,6 @@
 ## Pitchbar — Laravel Cloud configuration (placeholder)
 ##
-## VPS / Docker (what we actually ship): see docker-compose.prod.yml and
+## VPS / Docker (what we actually ship): see docker-compose.yml and
 ## infra/docker/README.md. This file is illustrative of the same three
 ## process types (web / reverb / workers) if you later move to Laravel Cloud.
 ##

@@ -118,6 +118,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Self-host (Docker / VPS)
+    |--------------------------------------------------------------------------
+    |
+    | When true, the first person who registers becomes super_admin and can
+    | use both the customer app and Settings → System. Hosted SaaS leaves
+    | this off so platform operators stay on /admin.
+    |
+    */
+
+    'self_host' => (bool) env('PITCHBAR_SELF_HOST', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
     |
