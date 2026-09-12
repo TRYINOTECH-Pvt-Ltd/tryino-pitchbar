@@ -7,11 +7,14 @@
 #   # AI / mail / Stripe go in Settings → System after you register
 #   docker compose up -d --build
 #
+# Hostinger Docker Manager: do not use Compose from URL alone — that
+# only copies this YAML into /docker/<project>/ with no Dockerfile.
+# Clone the repo into that folder, then deploy.
+# Do not set compose `name:` — Docker Manager uses the folder name.
+#
 # Optional profiles:
 #   --profile realtime   Laravel Reverb (live inbox / human takeover)
 #   --profile qdrant     self-hosted vectors (skip if using Cloudflare Vectorize)
-
-name: pitchbar
 
 x-app: &app
   build:
@@ -25,6 +28,10 @@ x-app: &app
   environment:
     APP_ENV: production
     APP_DEBUG: "false"
+    APP_KEY: ${APP_KEY:?Set APP_KEY}
+    APP_URL: ${APP_URL:-https://pitch.tryinotech.com}
+    APP_DOMAIN: ${APP_DOMAIN:-pitch.tryinotech.com}
+    WIDGET_JWT_SECRET: ${WIDGET_JWT_SECRET:?Set WIDGET_JWT_SECRET}
     LOG_CHANNEL: stderr
     LOG_STACK: stderr
     DB_CONNECTION: pgsql
@@ -32,7 +39,7 @@ x-app: &app
     DB_PORT: "5432"
     DB_DATABASE: ${DB_DATABASE:-pitchbar}
     DB_USERNAME: ${DB_USERNAME:-pitchbar}
-    DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
     REDIS_HOST: redis
     REDIS_PORT: "6379"
     REDIS_CLIENT: predis
@@ -45,6 +52,8 @@ x-app: &app
     INERTIA_SSR_ENABLED: "${INERTIA_SSR_ENABLED:-true}"
     INERTIA_SSR_URL: http://ssr:13714
     PITCHBAR_SELF_HOST: "${PITCHBAR_SELF_HOST:-true}"
+  security_opt:
+    - no-new-privileges:true
   volumes:
     - pitchbar-storage:/app/storage
   depends_on:
@@ -59,10 +68,12 @@ services:
   postgres:
     image: postgres:16-alpine
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     environment:
       POSTGRES_DB: ${DB_DATABASE:-pitchbar}
       POSTGRES_USER: ${DB_USERNAME:-pitchbar}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
     volumes:
       - pitchbar-pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -76,6 +87,8 @@ services:
   redis:
     image: redis:7-alpine
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - pitchbar-redisdata:/data
@@ -92,11 +105,10 @@ services:
     command: ["web"]
     networks:
       - pitchbar
-      - traefik-proxy
     labels:
       - traefik.enable=true
-      - traefik.docker.network=${TRAEFIK_NETWORK:-traefik-proxy}
-      - traefik.http.routers.pitchbar.rule=Host(`${APP_DOMAIN:?Set APP_DOMAIN}`)
+      - traefik.docker.network=pitchbar
+      - traefik.http.routers.pitchbar.rule=Host(`${APP_DOMAIN:-pitch.tryinotech.com}`)
       - traefik.http.routers.pitchbar.entrypoints=websecure
       - traefik.http.routers.pitchbar.tls.certresolver=letsencrypt
       - traefik.http.services.pitchbar.loadbalancer.server.port=80
@@ -165,8 +177,6 @@ services:
     <<: *app
     profiles: ["realtime"]
     command: ["reverb"]
-    ports:
-      - "${REVERB_PUBLISH_PORT:-8080}:8080"
     healthcheck:
       disable: true
     depends_on:
@@ -176,13 +186,15 @@ services:
         condition: service_healthy
 
   qdrant:
-    image: qdrant/qdrant:latest
+    image: qdrant/qdrant:v1.13.4
     profiles: ["qdrant"]
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - pitchbar-qdrantdata:/qdrant/storage
     healthcheck:
-      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6333' || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:6333/readyz >/dev/null || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -192,9 +204,6 @@ services:
 networks:
   pitchbar:
     name: pitchbar
-  traefik-proxy:
-    external: true
-    name: ${TRAEFIK_NETWORK:-traefik-proxy}
 
 volumes:
   pitchbar-pgdata:
