@@ -50,9 +50,11 @@ RUN ln -sf /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
 COPY --from=vendor /app/vendor ./vendor
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY . .
+COPY infra/docker/php.ini $PHP_INI_DIR/conf.d/zz-pitchbar.ini
 
 # Dummy env so Wayfinder / Vite can boot artisan without Redis/Postgres.
-# Strip the local Vite widget CDN so it is not baked into production assets.
+# Vendor was installed with --no-autoloader — dump-autoload must run
+# before any artisan command.
 ENV APP_ENV=production \
     APP_DEBUG=false \
     SESSION_DRIVER=array \
@@ -61,12 +63,13 @@ ENV APP_ENV=production \
     BROADCAST_CONNECTION=log \
     DB_CONNECTION=sqlite \
     DB_DATABASE=/tmp/build.sqlite \
-    LOG_CHANNEL=stderr
+    LOG_CHANNEL=stderr \
+    NODE_OPTIONS=--max-old-space-size=2048
 
 RUN cp .env.example .env \
     && touch /tmp/build.sqlite \
-    && php artisan key:generate --force \
     && composer dump-autoload --optimize --classmap-authoritative --no-dev \
+    && php artisan key:generate --force \
     && php artisan package:discover --ansi \
     && npm ci \
     && npm run build \
