@@ -54,6 +54,14 @@ If an empty `tryino-pitchbar` project already exists, delete it in Docker Manage
 
 Keep the Hostinger **Traefik** project running (`traefik-k0ce`). It uses **host networking** (ports 80/443 on the VPS) and discovers Pitchbar via Docker labels. There is no `traefik-proxy` network.
 
+Postgres must be **`pgvector/pgvector:pg16`** (not `postgres:16-alpine`) so `CREATE EXTENSION vector` succeeds. If you already started with Alpine, wipe the empty volume once:
+
+```sh
+docker compose down
+docker volume rm tryino-pitchbar_pitchbar-pgdata
+docker compose up -d --build
+```
+
 ## Optional profiles
 
 ```sh

@@ -75,7 +75,8 @@ RUN cp .env.example .env \
     && npm run build \
     && npx vite build --ssr \
     && npm run build:widget \
-    && rm -rf node_modules .env /usr/bin/composer
+    && npm prune --omit=dev \
+    && rm -rf .env /usr/bin/composer
 
 # ---------------------------------------------------------------------------
 # 3. Runtime
