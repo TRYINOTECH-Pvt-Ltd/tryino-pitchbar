@@ -1,5 +1,0 @@
-# TLS terminator in front of FrankenPHP.
-# Do not enable `encode` here — gzip buffers the widget SSE stream.
-{$APP_DOMAIN} {
-	reverse_proxy app:80
-}

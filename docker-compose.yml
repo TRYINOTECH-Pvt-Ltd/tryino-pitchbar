@@ -3,6 +3,7 @@
 #
 #   cp .env.production.example .env
 #   # fill APP_KEY, APP_URL, APP_DOMAIN, DB_PASSWORD
+#   # TLS: Hostinger Traefik (do not add Caddy — it would fight Traefik for 80/443)
 #   # AI / mail / Stripe go in Settings → System after you register
 #   docker compose up -d --build
 #
@@ -89,8 +90,17 @@ services:
   app:
     <<: *app
     command: ["web"]
-    ports:
-      - "${APP_PORT:-8000}:80"
+    networks:
+      - pitchbar
+      - traefik-proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${TRAEFIK_NETWORK:-traefik-proxy}
+      - traefik.http.routers.pitchbar.rule=Host(`${APP_DOMAIN:?Set APP_DOMAIN}`)
+      - traefik.http.routers.pitchbar.entrypoints=websecure
+      - traefik.http.routers.pitchbar.tls.certresolver=letsencrypt
+      - traefik.http.services.pitchbar.loadbalancer.server.port=80
+      - traefik.http.services.pitchbar.loadbalancer.responseforwarding.flushinterval=1ms
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://127.0.0.1/up"]
       interval: 15s
@@ -179,33 +189,15 @@ services:
     networks:
       - pitchbar
 
-  caddy:
-    image: caddy:2-alpine
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    environment:
-      APP_DOMAIN: ${APP_DOMAIN:?Set APP_DOMAIN in .env (e.g. pitch.tryinotech.com)}
-    volumes:
-      - ./infra/docker/Caddyfile.proxy:/etc/caddy/Caddyfile:ro
-      - caddy-data:/data
-      - caddy-config:/config
-    depends_on:
-      app:
-        condition: service_healthy
-    networks:
-      - pitchbar
-
 networks:
   pitchbar:
     name: pitchbar
+  traefik-proxy:
+    external: true
+    name: ${TRAEFIK_NETWORK:-traefik-proxy}
 
 volumes:
   pitchbar-pgdata:
   pitchbar-redisdata:
   pitchbar-storage:
   pitchbar-qdrantdata:
-  caddy-data:
-  caddy-config:

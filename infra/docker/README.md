@@ -24,6 +24,7 @@ Fill at least:
 |---|---|
 | `APP_URL` | `https://pitch.tryinotech.com` |
 | `APP_DOMAIN` | `pitch.tryinotech.com` |
+| `TRAEFIK_NETWORK` | `traefik-proxy` (confirm with `docker network ls`) |
 | `APP_KEY` | `docker run --rm php:8.4-cli php -r "echo 'base64:'.base64_encode(random_bytes(32)), PHP_EOL;"` |
 | `WIDGET_JWT_SECRET` | `openssl rand -hex 32` |
 | `DB_PASSWORD` | a long random string (required) |
@@ -48,11 +49,13 @@ docker compose restart horizon
 
 Use Docker Manager → Projects for logs, restart, and the container terminal. Do **not** use One-click deploy. Do **not** paste the compose file into a different folder — the image builds from this repo.
 
-## TLS
+## TLS (Traefik — no Caddy)
 
-Caddy in this stack listens on **80/443** and proxies to `app:80`. DNS must already point at the VPS or the certificate fails.
+Keep the Hostinger **Traefik** project running (`traefik-k0ce`). It already owns ports **80/443** and issues Let’s Encrypt certs.
 
-Debug without TLS: `http://VPS_IP:8000`.
+Pitchbar does **not** publish 80/443. Traefik reaches `app:80` on the shared `traefik-proxy` network via labels (`Host(APP_DOMAIN)`).
+
+If `docker compose up` fails with “network traefik-proxy not found”, run `docker network ls` and set `TRAEFIK_NETWORK` to the Traefik project’s network name.
 
 ## Optional profiles
 
@@ -71,7 +74,7 @@ git pull
 docker compose up -d --build
 ```
 
-Named volumes (Postgres, Redis, storage, Caddy certs) are kept.
+Named volumes (Postgres, Redis, storage) are kept. Traefik keeps the TLS certs.
 
 ## Sizing
 
