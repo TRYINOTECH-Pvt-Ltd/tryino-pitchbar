@@ -13,8 +13,12 @@ return new class extends Migration
 {
     public function up(): void
     {
-        DB::statement('UPDATE conversations SET claimed_by_user_id = NULL WHERE claimed_by_user_id IS NOT NULL AND claimed_by_user_id NOT IN (SELECT id FROM users)');
-        DB::statement('UPDATE workspaces SET lifetime_plan_id = NULL WHERE lifetime_plan_id IS NOT NULL AND lifetime_plan_id NOT IN (SELECT id FROM plans)');
+        $this->nullOrphans('conversations', 'claimed_by_user_id', 'users');
+        $this->nullOrphans('workspaces', 'lifetime_plan_id', 'plans');
+
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement("ALTER TABLE workspaces ALTER COLUMN lifetime_plan_id TYPE uuid USING NULLIF(TRIM(lifetime_plan_id::text), '')::uuid");
+        }
 
         Schema::table('conversations', function (Blueprint $table) {
             $table->foreign('claimed_by_user_id', 'conversations_claimed_by_user_id_foreign')
@@ -38,5 +42,16 @@ return new class extends Migration
         Schema::table('conversations', function (Blueprint $table) {
             $table->dropForeign('conversations_claimed_by_user_id_foreign');
         });
+    }
+
+    private function nullOrphans(string $table, string $column, string $parent): void
+    {
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement("UPDATE {$table} SET {$column} = NULL WHERE {$column} IS NOT NULL AND {$column}::text NOT IN (SELECT id::text FROM {$parent})");
+
+            return;
+        }
+
+        DB::statement("UPDATE {$table} SET {$column} = NULL WHERE {$column} IS NOT NULL AND {$column} NOT IN (SELECT id FROM {$parent})");
     }
 };
